@@ -3,170 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yung's Art Lab | Cinematic Gallery</title>
+    <title>Yung's Art Lab | Exhibition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        /* 1. 極簡美感基礎：電影感深邃調色 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none; /* 觀眾無法選取文字，保持畫面純淨 */
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
 
         body {
-            background-color: #050505; /* 更深邃的美術館暗房調 */
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            overflow: hidden; /* 隱藏捲軸，保持電影沉浸感 */
+            /* 1. 畫廊打光效果：模擬天花板射燈照在中央牆面上 */
+            background: radial-gradient(circle at 50% 40%, #3a3a3a 0%, #0a0a0a 100%);
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
             height: 100vh;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
-        /* 2. 頂部：極簡導航 (保持大片留白) */
+        /* 頂部 LOGO */
         header {
-            padding: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
+            padding: 30px 40px;
+            position: absolute;
+            top: 0;
+            width: 100%;
             z-index: 10;
         }
-
         h1 {
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #ffffff;
-        }
-
-        nav a {
-            color: #666666;
-            text-decoration: none;
-            font-size: 12px;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
             letter-spacing: 0.15em;
-            transition: color 0.4s ease;
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        nav a:hover {
-            color: #ffffff;
-        }
-
-        /* 3. 核心：電影全屏舞台，圖片最大化 */
+        /* 主展廳 */
         main {
-            flex-grow: 1;
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
-            overflow: hidden;
-            width: 100%;
         }
 
         .slide-container {
-            position: relative;
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
+        /* 2. 畫作本體：加上實體畫布白邊與掛在牆上的陰影 */
         .artwork {
-            /* 調整：讓畫作在畫面中呈現大滿版，比例大幅放大 */
-            max-width: 90%; 
-            max-height: 85%;
-            object-fit: contain; /* 確保畫作完整顯示，不被剪裁 */
+            max-width: 70%; 
+            max-height: 75%;
+            object-fit: contain;
             position: absolute;
-            opacity: 0; /* 預設隱藏 */
-            transform: scale(0.98); /* 預設微縮小，準備進行電影感淡入縮放 */
-            box-shadow: 0 40px 120px rgba(0,0,0,0.85); /* 模擬專業畫廊射燈陰影 */
-            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: none; /* 隱藏的畫作不干擾點擊 */
+            opacity: 0;
+            transform: translateY(15px); /* 讓畫作有從下方輕輕掛上牆的感覺 */
+            
+            /* 實體畫廊陰影：模擬畫布與牆壁的距離 */
+            box-shadow: 0 35px 60px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.5); 
+            
+            /* 畫布白邊 (如果你喜歡無邊框純圖，可以把下面這兩行刪掉) */
+            background-color: #fafafa; 
+            padding: 12px; 
+            
+            transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
         }
 
         .artwork.active {
-            opacity: 1; /* 顯示 */
-            transform: scale(1); /* 回復正常大小，產生高雅的呼吸感 */
-            pointer-events: auto; /* 啟動點擊 */
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
 
-        /* 4. 左右兩側隱形/半透明導覽 (極強的互動體驗) */
-        .nav-btn {
+        /* 左右點擊換畫區 */
+        .nav-zone {
             position: absolute;
             top: 0;
             height: 100%;
-            width: 15%; /* 觀眾只要點擊螢幕左側或右側即可輕鬆換場 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 25%;
             cursor: pointer;
             z-index: 5;
-            color: rgba(255,255,255,0.03); /* 預設幾乎看不見，保持乾淨 */
-            font-size: 28px;
-            font-weight: 200;
-            transition: all 0.4s ease;
-        }
-
-        .prev-btn { left: 0; }
-        .next-btn { right: 0; }
-
-        /* 鼠標懸停在兩側時才隱約顯現箭頭，完全不破壞美感 */
-        .nav-btn:hover {
-            color: rgba(255,255,255,0.4);
-            background: linear-gradient(to var(--direction, right), rgba(0,0,0,0.2), transparent);
-        }
-        .prev-btn { --direction: right; }
-        .next-btn { --direction: left; }
-
-        /* 5. 底部：畫廊標籤 (留白呼吸感排版) */
-        footer {
-            padding: 40px;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            align-items: center;
+        }
+        .prev-zone { left: 0; justify-content: flex-start; padding-left: 40px;}
+        .next-zone { right: 0; justify-content: flex-end; padding-right: 40px;}
+
+        .nav-zone span {
+            font-size: 40px;
+            font-weight: 100;
+            color: rgba(255,255,255,0.1);
+            transition: color 0.4s;
+        }
+        .nav-zone:hover span { color: rgba(255,255,255,0.7); }
+
+        /* 3. 實體畫廊說明牌 (Museum Plaque) */
+        .plaque-container {
+            position: absolute;
+            bottom: 60px; /* 釘在牆壁右下方 */
+            right: 80px;
             z-index: 10;
-            border-top: 1px solid rgba(255,255,255,0.03); /* 極淡的分隔線 */
-            padding-top: 20px;
         }
 
-        .info-block {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+        .museum-plaque {
+            background-color: #fdfdfd; /* 實體象牙白紙卡 */
+            color: #1a1a1a;
+            padding: 20px 30px;
+            box-shadow: 5px 10px 20px rgba(0,0,0,0.4); /* 紙卡的陰影 */
+            min-width: 260px;
+            border-left: 2px solid #999; /* 側邊裝飾 */
+            opacity: 0;
+            transform: translateX(10px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .museum-plaque.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .art-title {
-            font-size: 16px;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            color: #ffffff;
-            font-style: italic; /* 畫廊慣用的優雅斜體作品名 */
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #000;
         }
 
         .art-meta {
-            font-size: 11px;
-            color: #666666;
-            letter-spacing: 0.1em;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            color: #555;
+            letter-spacing: 0.05em;
+        }
+
+        .art-artist {
+            font-family: 'Roboto', sans-serif;
+            font-size: 10px;
+            color: #888;
             text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 15px;
+            border-top: 1px solid #ddd;
+            padding-top: 6px;
         }
 
         .counter {
-            font-size: 12px;
-            color: #444444;
-            font-family: monospace;
-            letter-spacing: 0.1em;
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 2px;
         }
 
-        /* 手機端完美適配 */
+        /* 手機端適配 */
         @media (max-width: 768px) {
-            header, footer { padding: 20px; }
-            h1 { font-size: 12px; }
-            .artwork { max-width: 95%; max-height: 75%; }
-            .nav-btn { width: 25%; color: rgba(255,255,255,0.15); } /* 手機端略微顯現引導點擊 */
-            footer { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .counter { align-self: flex-end; }
+            .plaque-container {
+                position: relative;
+                bottom: 20px;
+                right: 0;
+                display: flex;
+                justify-content: center;
+                margin-top: 30px;
+            }
+            .artwork { max-width: 85%; max-height: 55%; padding: 8px; }
+            main { flex-direction: column; }
+            .nav-zone span { font-size: 30px; }
+            .counter { display: none; } 
         }
     </style>
 </head>
@@ -174,17 +183,14 @@
 
     <header>
         <h1>YUNG'S ART LAB</h1>
-        <nav>
-            <a href="https://www.instagram.com/yungsartlab/" target="_blank">INSTAGRAM</a>
-        </nav>
     </header>
 
     <main>
-        <!-- 兩側隱形導覽 -->
-        <div class="prev-btn nav-btn" onclick="changeSlide(-1)">‹</div>
+        <div class="nav-zone prev-zone" onclick="changeSlide(-1)">
+            <span>‹</span>
+        </div>
         
         <div class="slide-container">
-            <!-- 🎨 你的 7 幅真實作品大滿版代碼 -->
             <img class="artwork active" src="All eyes on us.jpg" alt="Artwork 1" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm">
             <img class="artwork" src="The quiet glamour.jpeg" alt="Artwork 2" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm">
             <img class="artwork" src="A piece of a dream.jpeg" alt="Artwork 3" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm">
@@ -194,53 +200,51 @@
             <img class="artwork" src="Fantasy of a girl in bathroom time.png" alt="Artwork 7" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm">
         </div>
 
-        <div class="next-btn nav-btn" onclick="changeSlide(1)">›</div>
+        <div class="nav-zone next-zone" onclick="changeSlide(1)">
+            <span>›</span>
+        </div>
     </main>
 
-    <footer>
-        <div class="info-block">
+    <div class="plaque-container">
+        <div class="museum-plaque" id="plaque">
             <div id="artTitle" class="art-title">All eyes on us</div>
             <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
+            <div class="art-artist">Yung's Art Lab</div>
         </div>
-        <div id="counter" class="counter">01 / 07</div>
-    </footer>
+    </div>
+
+    <div id="counter" class="counter">1 / 7</div>
 
     <script>
-        // 6. 核心自動化互動：控制電影感淡入淡出、計數器與標籤連動
         let currentIdx = 0;
         const slides = document.querySelectorAll('.artwork');
         const titleEl = document.getElementById('artTitle');
         const metaEl = document.getElementById('artMeta');
         const counterEl = document.getElementById('counter');
+        const plaque = document.getElementById('plaque');
 
         function updateLabels() {
             const currentSlide = slides[currentIdx];
             
-            // 標籤文字優雅動態更新
-            titleEl.textContent = currentSlide.getAttribute('data-title');
-            metaEl.textContent = currentSlide.getAttribute('data-meta');
+            // 換畫時，說明牌會有「重新掛上」的視覺動效
+            plaque.classList.remove('visible');
             
-            // 自動計算當前張數與總張數（如: 01 / 07）
-            const total = slides.length;
-            counterEl.textContent = `${String(currentIdx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+            setTimeout(() => {
+                titleEl.textContent = currentSlide.getAttribute('data-title');
+                metaEl.textContent = currentSlide.getAttribute('data-meta');
+                counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
+                plaque.classList.add('visible');
+            }, 400); 
         }
 
         function changeSlide(direction) {
-            // 隱藏當前圖片（啟動電影感淡出）
             slides[currentIdx].classList.remove('active');
-            
-            // 計算下一張或上一張圖片的索引
             currentIdx = (currentIdx + direction + slides.length) % slides.length;
-            
-            // 顯示新圖片（啟動縮放淡入）
             slides[currentIdx].classList.add('active');
-            
-            // 更新下方對應的作品資訊
             updateLabels();
         }
 
-        // 初始化網站標籤
-        updateLabels();
+        setTimeout(() => plaque.classList.add('visible'), 100);
     </script>
 </body>
 </html>
