@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YUNG'S ART LAB | Gallery</title>
+    <title>Yung's Art Lab | Cinematic Gallery</title>
     <style>
-        /* 1. 基础电影感胶片调色配置 */
+        /* 1. 極簡美感基礎：電影感深邃調色 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none;
+            user-select: none; /* 觀眾無法選取文字，保持畫面純淨 */
         }
 
         body {
-            background-color: #0b0b0b; /* 极深的美术馆暗房调 */
-            color: #e5e5e5;
+            background-color: #050505; /* 更深邃的美術館暗房調 */
+            color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            overflow: hidden;
+            overflow: hidden; /* 隱藏捲軸，保持電影沉浸感 */
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 40px;
         }
 
-        /* 2. 顶部极简导航栏 */
+        /* 2. 頂部：極簡導航 (保持大片留白) */
         header {
+            padding: 40px;
             display: flex;
             justify-content: space-between;
             align-items: baseline;
@@ -42,7 +42,7 @@
         }
 
         nav a {
-            color: #888888;
+            color: #666666;
             text-decoration: none;
             font-size: 12px;
             letter-spacing: 0.15em;
@@ -53,15 +53,15 @@
             color: #ffffff;
         }
 
-        /* 3. 核心：电影全屏舞台 */
+        /* 3. 核心：電影全屏舞台，圖片最大化 */
         main {
             flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
+            overflow: hidden;
             width: 100%;
-            height: 60vh;
         }
 
         .slide-container {
@@ -74,36 +74,37 @@
         }
 
         .artwork {
-            max-width: 85%;
+            /* 調整：讓畫作在畫面中呈現大滿版，比例大幅放大 */
+            max-width: 90%; 
             max-height: 85%;
-            object-fit: contain;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.8); /* 模拟画廊射灯阴影 */
-            opacity: 0;
-            transform: scale(0.98);
-            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            object-fit: contain; /* 確保畫作完整顯示，不被剪裁 */
             position: absolute;
-            pointer-events: none;
+            opacity: 0; /* 預設隱藏 */
+            transform: scale(0.98); /* 預設微縮小，準備進行電影感淡入縮放 */
+            box-shadow: 0 40px 120px rgba(0,0,0,0.85); /* 模擬專業畫廊射燈陰影 */
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none; /* 隱藏的畫作不干擾點擊 */
         }
 
         .artwork.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
+            opacity: 1; /* 顯示 */
+            transform: scale(1); /* 回復正常大小，產生高雅的呼吸感 */
+            pointer-events: auto; /* 啟動點擊 */
         }
 
-        /* 4. 左右隐形/半透明电影切场按钮 */
+        /* 4. 左右兩側隱形/半透明導覽 (極強的互動體驗) */
         .nav-btn {
             position: absolute;
             top: 0;
             height: 100%;
-            width: 15%;
+            width: 15%; /* 觀眾只要點擊螢幕左側或右側即可輕鬆換場 */
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 5;
-            color: rgba(255,255,255,0);
-            font-size: 24px;
+            color: rgba(255,255,255,0.03); /* 預設幾乎看不見，保持乾淨 */
+            font-size: 28px;
             font-weight: 200;
             transition: all 0.4s ease;
         }
@@ -111,7 +112,7 @@
         .prev-btn { left: 0; }
         .next-btn { right: 0; }
 
-        /* 鼠标悬停时才隐约显现，保持画面纯净 */
+        /* 鼠標懸停在兩側時才隱約顯現箭頭，完全不破壞美感 */
         .nav-btn:hover {
             color: rgba(255,255,255,0.4);
             background: linear-gradient(to var(--direction, right), rgba(0,0,0,0.2), transparent);
@@ -119,13 +120,14 @@
         .prev-btn { --direction: right; }
         .next-btn { --direction: left; }
 
-        /* 5. 底部画廊标签（Label）*/
+        /* 5. 底部：畫廊標籤 (留白呼吸感排版) */
         footer {
+            padding: 40px;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             z-index: 10;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255,255,255,0.03); /* 極淡的分隔線 */
             padding-top: 20px;
         }
 
@@ -140,7 +142,7 @@
             font-weight: 400;
             letter-spacing: 0.05em;
             color: #ffffff;
-            font-style: italic; /* 画廊惯用斜体作品名 */
+            font-style: italic; /* 畫廊慣用的優雅斜體作品名 */
         }
 
         .art-meta {
@@ -157,12 +159,12 @@
             letter-spacing: 0.1em;
         }
 
-        /* 手机端适配响应式 */
+        /* 手機端完美適配 */
         @media (max-width: 768px) {
-            body { padding: 20px; }
+            header, footer { padding: 20px; }
             h1 { font-size: 12px; }
             .artwork { max-width: 95%; max-height: 75%; }
-            .nav-btn { width: 20%; color: rgba(255,255,255,0.2); }
+            .nav-btn { width: 25%; color: rgba(255,255,255,0.15); } /* 手機端略微顯現引導點擊 */
             footer { flex-direction: column; align-items: flex-start; gap: 15px; }
             .counter { align-self: flex-end; }
         }
@@ -171,18 +173,18 @@
 <body>
 
     <header>
-        <h1>Yung's Art Lab</h1>
+        <h1>YUNG'S ART LAB</h1>
         <nav>
             <a href="https://www.instagram.com/yungsartlab/" target="_blank">INSTAGRAM</a>
         </nav>
     </header>
 
     <main>
-        <div class="prev-btn nav-btn" onclick="changeSlide(-1)">—</div>
+        <!-- 兩側隱形導覽 -->
+        <div class="prev-btn nav-btn" onclick="changeSlide(-1)">‹</div>
         
         <div class="slide-container">
-            <!-- ⚠️ 在这里替换你自己的画作图片链接 ⚠️ -->
-            <!-- 你可以用你托管在网上的图片URL，这里我先用精选的高清艺术画占位 -->
+            <!-- 🎨 你的 7 幅真實作品大滿版代碼 -->
             <img class="artwork active" src="All eyes on us.jpg" alt="Artwork 1" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm">
             <img class="artwork" src="The quiet glamour.jpeg" alt="Artwork 2" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm">
             <img class="artwork" src="A piece of a dream.jpeg" alt="Artwork 3" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm">
@@ -192,19 +194,19 @@
             <img class="artwork" src="Fantasy of a girl in bathroom time.png" alt="Artwork 7" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm">
         </div>
 
-        <div class="next-btn nav-btn" onclick="changeSlide(1)">+</div>
+        <div class="next-btn nav-btn" onclick="changeSlide(1)">›</div>
     </main>
 
     <footer>
         <div class="info-block">
-            <div id="artTitle" class="art-title">Whisper of Silence</div>
-            <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 120x150cm</div>
+            <div id="artTitle" class="art-title">All eyes on us</div>
+            <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
         </div>
-        <div id="counter" class="counter">01 / 03</div>
+        <div id="counter" class="counter">01 / 07</div>
     </footer>
 
     <script>
-        // 6. 核心交互：控制电影感淡入淡出与标签切换
+        // 6. 核心自動化互動：控制電影感淡入淡出、計數器與標籤連動
         let currentIdx = 0;
         const slides = document.querySelectorAll('.artwork');
         const titleEl = document.getElementById('artTitle');
@@ -214,30 +216,30 @@
         function updateLabels() {
             const currentSlide = slides[currentIdx];
             
-            // 文本信息优雅更新
+            // 標籤文字優雅動態更新
             titleEl.textContent = currentSlide.getAttribute('data-title');
             metaEl.textContent = currentSlide.getAttribute('data-meta');
             
-            // 计数器更新 (例如: 01 / 03)
+            // 自動計算當前張數與總張數（如: 01 / 07）
             const total = slides.length;
             counterEl.textContent = `${String(currentIdx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
         }
 
         function changeSlide(direction) {
-            // 隐藏当前图片
+            // 隱藏當前圖片（啟動電影感淡出）
             slides[currentIdx].classList.remove('active');
             
-            // 计算下一张图片的索引
+            // 計算下一張或上一張圖片的索引
             currentIdx = (currentIdx + direction + slides.length) % slides.length;
             
-            // 显示下一张图片
+            // 顯示新圖片（啟動縮放淡入）
             slides[currentIdx].classList.add('active');
             
-            // 更新下方画廊标签内容
+            // 更新下方對應的作品資訊
             updateLabels();
         }
 
-        // 初始化
+        // 初始化網站標籤
         updateLabels();
     </script>
 </body>
