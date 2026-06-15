@@ -2,11 +2,12 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Yung's Art Lab | Exhibition</title>
+    <!-- 引入高雅的美術館字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             /* 畫廊打光效果：模擬天花板射燈 */
@@ -14,9 +15,11 @@
             color: #fff;
             font-family: 'Roboto', sans-serif;
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* 防止螢幕上下亂滾 */
             display: flex;
             flex-direction: column;
+            user-select: none; /* 絕對禁止選取文字 */
+            -webkit-user-select: none;
         }
 
         header {
@@ -31,14 +34,19 @@
             font-size: 18px;
             letter-spacing: 0.15em;
             color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
         }
 
+        /* 擴大感應區到整個 main */
         main {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
+            width: 100%;
+            height: 100%;
+            touch-action: pan-y; /* 允許垂直動作，攔截水平滑動給換圖用 */
         }
 
         .slide-container {
@@ -48,11 +56,9 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            /* ⚠️ 新增：防止瀏覽器預設的滑動行為（如縮放）干擾 */
-            touch-action: pan-y;
         }
 
-        /* 畫作本體 */
+        /* 畫作本體：新增防止手機瀏覽器干擾的魔法 */
         .artwork {
             max-width: 70%; 
             max-height: 75%;
@@ -61,30 +67,55 @@
             opacity: 0;
             transform: translateY(15px);
             box-shadow: 0 35px 60px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.5); 
-            background-color: #fafafa; /* 畫布白邊 */
+            background-color: #fafafa; 
             padding: 12px; 
             transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
             pointer-events: none;
+            z-index: 1;
+            
+            /* ⚠️ 核心修復：徹底禁止手機把圖片當作檔案拖曳或長按儲存 */
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+            user-drag: none;
         }
 
-        /* 當畫作顯示時，游標變成手指，暗示可點擊 */
         .artwork.active {
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
             cursor: pointer; 
+            z-index: 5;
         }
 
-        /* ❌ 移除：原本的左右點擊換畫區樣式 */
-        /* .nav-zone { ... } */
-        /* .nav-zone span { ... } */
+        /* 左右隱形點擊導覽區 (電腦版專用) */
+        .nav-zone {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 15%; 
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+        }
+        .prev-zone { left: 0; justify-content: flex-start; padding-left: 40px;}
+        .next-zone { right: 0; justify-content: flex-end; padding-right: 40px;}
+
+        .nav-zone span {
+            font-size: 40px;
+            font-weight: 100;
+            color: rgba(255,255,255,0.05);
+            transition: color 0.4s;
+        }
+        .nav-zone:hover span { color: rgba(255,255,255,0.7); }
 
         /* 實體畫廊說明牌 */
         .plaque-container {
             position: absolute;
             bottom: 60px; 
             right: 80px;
-            z-index: 10;
+            z-index: 20;
+            pointer-events: none; /* 讓滑鼠/手指穿透說明牌，不影響滑動 */
         }
 
         .museum-plaque {
@@ -131,7 +162,6 @@
             padding-top: 6px;
         }
         
-        /* 點擊 IG 的小提示 */
         .ig-hint {
             font-family: 'Roboto', sans-serif;
             font-size: 9px;
@@ -148,9 +178,12 @@
             font-size: 14px;
             color: rgba(255,255,255,0.3);
             letter-spacing: 2px;
+            z-index: 10;
+            pointer-events: none;
         }
 
         @media (max-width: 768px) {
+            .nav-zone { display: none; } 
             .plaque-container {
                 position: relative;
                 bottom: 20px;
@@ -161,8 +194,6 @@
             }
             .artwork { max-width: 85%; max-height: 55%; padding: 8px; }
             main { flex-direction: column; }
-            /* ❌ 移除：手機端導覽樣式 */
-            /* .nav-zone span { font-size: 30px; } */
             .counter { display: none; } 
         }
     </style>
@@ -173,9 +204,112 @@
         <h1>YUNG'S ART LAB</h1>
     </header>
 
-    <main>
-        <div class="slide-container" id="gallery-container">
+    <!-- 將觸控監聽綁定在整個大螢幕上 -->
+    <main id="touch-area">
+        <!-- 左邊換圖點擊區 (電腦版) -->
+        <div class="nav-zone prev-zone" onclick="changeSlide(-1)">
+            <span>‹</span>
+        </div>
+        
+        <div class="slide-container">
             <img class="artwork active" onclick="openIG(this)" src="All eyes on us.jpg" alt="Artwork 1" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/yungsartlab/">
             <img class="artwork" onclick="openIG(this)" src="The quiet glamour.jpeg" alt="Artwork 2" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
             <img class="artwork" onclick="openIG(this)" src="A piece of a dream.jpeg" alt="Artwork 3" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/yungsartlab/">
-            <img class="artwork" onclick="openIG(this)" src="Family.jpeg" alt="Artwork 4" data-title="Family" data-meta="Acrylic, 202
+            <img class="artwork" onclick="openIG(this)" src="Family.jpeg" alt="Artwork 4" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
+            <img class="artwork" onclick="openIG(this)" src="Flower with elegant vibe.png" alt="Artwork 5" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
+            <img class="artwork" onclick="openIG(this)" src="Blooming Roses.png" alt="Artwork 6" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
+            <img class="artwork" onclick="openIG(this)" src="Fantasy of a girl in bathroom time.png" alt="Artwork 7" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
+        </div>
+
+        <!-- 右邊換圖點擊區 (電腦版) -->
+        <div class="nav-zone next-zone" onclick="changeSlide(1)">
+            <span>›</span>
+        </div>
+    </main>
+
+    <div class="plaque-container">
+        <div class="museum-plaque" id="plaque">
+            <div id="artTitle" class="art-title">All eyes on us</div>
+            <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
+            <div class="art-artist">Yung's Art Lab</div>
+            <div class="ig-hint">↗ CLICK ARTWORK FOR IG</div>
+        </div>
+    </div>
+
+    <div id="counter" class="counter">1 / 7</div>
+
+    <script>
+        let currentIdx = 0;
+        const slides = document.querySelectorAll('.artwork');
+        const titleEl = document.getElementById('artTitle');
+        const metaEl = document.getElementById('artMeta');
+        const counterEl = document.getElementById('counter');
+        const plaque = document.getElementById('plaque');
+
+        function updateLabels() {
+            const currentSlide = slides[currentIdx];
+            
+            plaque.classList.remove('visible');
+            
+            setTimeout(() => {
+                titleEl.textContent = currentSlide.getAttribute('data-title');
+                metaEl.textContent = currentSlide.getAttribute('data-meta');
+                counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
+                plaque.classList.add('visible');
+            }, 400); 
+        }
+
+        function changeSlide(direction) {
+            slides[currentIdx].classList.remove('active');
+            currentIdx = (currentIdx + direction + slides.length) % slides.length;
+            slides[currentIdx].classList.add('active');
+            updateLabels();
+        }
+
+        // 開啟 IG 連結：只有在「單純點擊（沒有滑動）」時才會觸發
+        function openIG(imgElement) {
+            const igLink = imgElement.getAttribute('data-ig');
+            if(igLink) {
+                window.open(igLink, '_blank');
+            }
+        }
+
+        // 支援電腦版鍵盤左右方向鍵換圖
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // 📱 手機端超級靈敏滑動邏輯
+        const touchArea = document.getElementById('touch-area');
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        touchArea.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        touchArea.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].screenX;
+            const touchEndY = e.changedTouches[0].screenY;
+            
+            const xDiff = touchEndX - touchStartX;
+            const yDiff = touchEndY - touchStartY;
+            
+            const swipeThreshold = 30; // 只要滑動超過 30 像素就觸發，極度絲滑
+
+            // 確保是左右滑動（X軸距離大於Y軸），避免上下滾動時誤觸
+            if (Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > swipeThreshold) {
+                if (xDiff > 0) {
+                    changeSlide(-1); // 手指往右滑 -> 看上一張
+                } else {
+                    changeSlide(1);  // 手指往左滑 -> 看下一張
+                }
+            }
+        });
+
+        setTimeout(() => plaque.classList.add('visible'), 100);
+    </script>
+</body>
+</html>
