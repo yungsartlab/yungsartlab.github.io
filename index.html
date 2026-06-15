@@ -3,248 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yung's Art Lab | Exhibition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <title>YUNG'S ART LAB</title>
     <style>
+        /* 絕對前衛：拋棄所有多餘裝飾 */
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
 
         body {
-            /* 1. 畫廊打光效果：模擬天花板射燈照在中央牆面上 */
-            background: radial-gradient(circle at 50% 40%, #3a3a3a 0%, #0a0a0a 100%);
-            color: #fff;
-            font-family: 'Roboto', sans-serif;
-            height: 100vh;
+            background-color: #000000; /* 絕對純黑 */
+            color: #ffffff;
+            font-family: "Helvetica Neue", Arial, sans-serif; /* 現代主義無襯線字體 */
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
         }
 
-        /* 頂部 LOGO */
-        header {
-            padding: 30px 40px;
+        /* 巨型動態排版 (與圖片重疊產生負片效果) */
+        .title-display {
             position: absolute;
-            top: 0;
-            width: 100%;
+            top: 50%;
+            left: 4%;
+            transform: translateY(-50%);
+            font-size: 9vw;
+            font-weight: 900;
+            line-height: 0.85;
+            text-transform: uppercase;
             z-index: 10;
-        }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            letter-spacing: 0.15em;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* 主展廳 */
-        main {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            mix-blend-mode: difference; /* 前衛魔法：文字疊加在圖片上會自動變色 */
+            pointer-events: none; /* 讓滑鼠穿透文字點擊圖片 */
+            width: 90%;
+            word-wrap: break-word;
+            letter-spacing: -0.02em;
         }
 
-        .slide-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        /* 2. 畫作本體：加上實體畫布白邊與掛在牆上的陰影 */
-        .artwork {
-            max-width: 70%; 
-            max-height: 75%;
-            object-fit: contain;
+        .meta-display {
             position: absolute;
-            opacity: 0;
-            transform: translateY(15px); /* 讓畫作有從下方輕輕掛上牆的感覺 */
-            
-            /* 實體畫廊陰影：模擬畫布與牆壁的距離 */
-            box-shadow: 0 35px 60px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.5); 
-            
-            /* 畫布白邊 (如果你喜歡無邊框純圖，可以把下面這兩行刪掉) */
-            background-color: #fafafa; 
-            padding: 12px; 
-            
-            transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            bottom: 6%;
+            left: 4%;
+            font-family: monospace;
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            z-index: 10;
+            mix-blend-mode: difference;
             pointer-events: none;
+        }
+
+        /* 畫作展示區：打破死板的置中 */
+        .gallery {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* 圖片偏右，與左側巨型文字產生張力 */
+            padding-right: 8%;
+        }
+
+        .artwork {
+            position: absolute;
+            max-width: 65vw;
+            max-height: 85vh;
+            object-fit: contain;
+            opacity: 0;
+            transform: scale(0.95) translateX(40px);
+            transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1); /* 極度絲滑的切換曲線 */
+            cursor: crosshair; /* 前衛的十字準星游標，暗示可點擊 */
+            z-index: 1;
         }
 
         .artwork.active {
             opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        /* 左右點擊換畫區 */
-        .nav-zone {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: 25%;
-            cursor: pointer;
+            transform: scale(1) translateX(0);
             z-index: 5;
+        }
+
+        /* 極簡導覽介面 */
+        .controls {
+            position: absolute;
+            bottom: 6%;
+            right: 4%;
             display: flex;
-            align-items: center;
-        }
-        .prev-zone { left: 0; justify-content: flex-start; padding-left: 40px;}
-        .next-zone { right: 0; justify-content: flex-end; padding-right: 40px;}
-
-        .nav-zone span {
-            font-size: 40px;
-            font-weight: 100;
-            color: rgba(255,255,255,0.1);
-            transition: color 0.4s;
-        }
-        .nav-zone:hover span { color: rgba(255,255,255,0.7); }
-
-        /* 3. 實體畫廊說明牌 (Museum Plaque) */
-        .plaque-container {
-            position: absolute;
-            bottom: 60px; /* 釘在牆壁右下方 */
-            right: 80px;
+            gap: 30px;
             z-index: 10;
-        }
-
-        .museum-plaque {
-            background-color: #fdfdfd; /* 實體象牙白紙卡 */
-            color: #1a1a1a;
-            padding: 20px 30px;
-            box-shadow: 5px 10px 20px rgba(0,0,0,0.4); /* 紙卡的陰影 */
-            min-width: 260px;
-            border-left: 2px solid #999; /* 側邊裝飾 */
-            opacity: 0;
-            transform: translateX(10px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .museum-plaque.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .art-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            font-style: italic;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #000;
-        }
-
-        .art-meta {
-            font-family: 'Roboto', sans-serif;
-            font-size: 12px;
-            color: #555;
-            letter-spacing: 0.05em;
-        }
-
-        .art-artist {
-            font-family: 'Roboto', sans-serif;
-            font-size: 10px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 15px;
-            border-top: 1px solid #ddd;
-            padding-top: 6px;
-        }
-
-        .counter {
-            position: absolute;
-            bottom: 40px;
-            left: 40px;
-            font-family: 'Roboto', sans-serif;
+            font-family: monospace;
             font-size: 14px;
-            color: rgba(255,255,255,0.3);
-            letter-spacing: 2px;
         }
 
-        /* 手機端適配 */
+        .ctrl-btn {
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 4px;
+        }
+
+        /* 按鈕底部的懸停動效 */
+        .ctrl-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 1px;
+            background: #ffffff;
+            transform: translateX(-101%);
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .ctrl-btn:hover::after { transform: translateX(0); }
+
+        .click-hint {
+            position: absolute;
+            top: 4%;
+            right: 4%;
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        /* 手機端極端排版適配 */
         @media (max-width: 768px) {
-            .plaque-container {
-                position: relative;
-                bottom: 20px;
-                right: 0;
-                display: flex;
-                justify-content: center;
-                margin-top: 30px;
-            }
-            .artwork { max-width: 85%; max-height: 55%; padding: 8px; }
-            main { flex-direction: column; }
-            .nav-zone span { font-size: 30px; }
-            .counter { display: none; } 
+            .title-display { font-size: 15vw; top: 15%; transform: none; }
+            .gallery { justify-content: center; padding-right: 0; align-items: flex-end; padding-bottom: 25%; }
+            .artwork { max-width: 90vw; max-height: 60vh; }
+            .controls { bottom: 6%; right: 4%; gap: 20px; }
+            .meta-display { bottom: 12%; left: 4%; font-size: 11px; }
+            .click-hint { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>YUNG'S ART LAB</h1>
-    </header>
+    <div class="click-hint">CLICK IMAGE FOR INSTAGRAM ↗</div>
 
-    <main>
-        <div class="nav-zone prev-zone" onclick="changeSlide(-1)">
-            <span>‹</span>
-        </div>
-        
-        <div class="slide-container">
-            <img class="artwork active" src="All eyes on us.jpg" alt="Artwork 1" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm">
-            <img class="artwork" src="The quiet glamour.jpeg" alt="Artwork 2" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm">
-            <img class="artwork" src="A piece of a dream.jpeg" alt="Artwork 3" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm">
-            <img class="artwork" src="Family.jpeg" alt="Artwork 4" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm">
-            <img class="artwork" src="Flower with elegant vibe.png" alt="Artwork 5" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm">
-            <img class="artwork" src="Blooming Roses.png" alt="Artwork 6" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm">
-            <img class="artwork" src="Fantasy of a girl in bathroom time.png" alt="Artwork 7" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm">
-        </div>
+    <div class="title-display" id="hugeTitle"></div>
+    <div class="meta-display" id="smallMeta"></div>
 
-        <div class="nav-zone next-zone" onclick="changeSlide(1)">
-            <span>›</span>
-        </div>
-    </main>
-
-    <div class="plaque-container">
-        <div class="museum-plaque" id="plaque">
-            <div id="artTitle" class="art-title">All eyes on us</div>
-            <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
-            <div class="art-artist">Yung's Art Lab</div>
-        </div>
+    <div class="gallery">
+        <img class="artwork active" onclick="openIG(this)" src="All eyes on us.jpg" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/yungsartlab/">
+        <img class="artwork" onclick="openIG(this)" src="The quiet glamour.jpeg" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
+        <img class="artwork" onclick="openIG(this)" src="A piece of a dream.jpeg" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/yungsartlab/">
+        <img class="artwork" onclick="openIG(this)" src="Family.jpeg" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
+        <img class="artwork" onclick="openIG(this)" src="Flower with elegant vibe.png" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
+        <img class="artwork" onclick="openIG(this)" src="Blooming Roses.png" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
+        <img class="artwork" onclick="openIG(this)" src="Fantasy of a girl in bathroom time.png" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
     </div>
 
-    <div id="counter" class="counter">1 / 7</div>
+    <div class="controls">
+        <div class="ctrl-btn" onclick="changeSlide(-1)">PREV</div>
+        <div class="ctrl-btn" onclick="changeSlide(1)">NEXT</div>
+    </div>
 
     <script>
         let currentIdx = 0;
         const slides = document.querySelectorAll('.artwork');
-        const titleEl = document.getElementById('artTitle');
-        const metaEl = document.getElementById('artMeta');
-        const counterEl = document.getElementById('counter');
-        const plaque = document.getElementById('plaque');
+        const hugeTitle = document.getElementById('hugeTitle');
+        const smallMeta = document.getElementById('smallMeta');
 
-        function updateLabels() {
+        function updateUI() {
             const currentSlide = slides[currentIdx];
-            
-            // 換畫時，說明牌會有「重新掛上」的視覺動效
-            plaque.classList.remove('visible');
-            
-            setTimeout(() => {
-                titleEl.textContent = currentSlide.getAttribute('data-title');
-                metaEl.textContent = currentSlide.getAttribute('data-meta');
-                counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
-                plaque.classList.add('visible');
-            }, 400); 
+            // 更新巨型文字與小標籤
+            hugeTitle.textContent = currentSlide.getAttribute('data-title');
+            smallMeta.textContent = currentSlide.getAttribute('data-meta');
         }
 
         function changeSlide(direction) {
             slides[currentIdx].classList.remove('active');
             currentIdx = (currentIdx + direction + slides.length) % slides.length;
             slides[currentIdx].classList.add('active');
-            updateLabels();
+            updateUI();
         }
 
-        setTimeout(() => plaque.classList.add('visible'), 100);
+        // 點擊圖片跳轉 IG 的功能
+        function openIG(imgElement) {
+            const igLink = imgElement.getAttribute('data-ig');
+            if(igLink) {
+                window.open(igLink, '_blank');
+            }
+        }
+
+        // 初始化
+        updateUI();
     </script>
 </body>
 </html>
