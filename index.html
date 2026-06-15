@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Yung's Art Lab | Exhibition</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
@@ -48,6 +48,8 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            /* ⚠️ 新增：防止瀏覽器預設的滑動行為（如縮放）干擾 */
+            touch-action: pan-y;
         }
 
         /* 畫作本體 */
@@ -73,26 +75,9 @@
             cursor: pointer; 
         }
 
-        .nav-zone {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: 25%;
-            cursor: pointer;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-        }
-        .prev-zone { left: 0; justify-content: flex-start; padding-left: 40px;}
-        .next-zone { right: 0; justify-content: flex-end; padding-right: 40px;}
-
-        .nav-zone span {
-            font-size: 40px;
-            font-weight: 100;
-            color: rgba(255,255,255,0.1);
-            transition: color 0.4s;
-        }
-        .nav-zone:hover span { color: rgba(255,255,255,0.7); }
+        /* ❌ 移除：原本的左右點擊換畫區樣式 */
+        /* .nav-zone { ... } */
+        /* .nav-zone span { ... } */
 
         /* 實體畫廊說明牌 */
         .plaque-container {
@@ -176,7 +161,8 @@
             }
             .artwork { max-width: 85%; max-height: 55%; padding: 8px; }
             main { flex-direction: column; }
-            .nav-zone span { font-size: 30px; }
+            /* ❌ 移除：手機端導覽樣式 */
+            /* .nav-zone span { font-size: 30px; } */
             .counter { display: none; } 
         }
     </style>
@@ -188,73 +174,8 @@
     </header>
 
     <main>
-        <div class="nav-zone prev-zone" onclick="changeSlide(-1)">
-            <span>‹</span>
-        </div>
-        
-        <div class="slide-container">
-            <img class="artwork active" onclick="openIG(this)" src="All eyes on us.jpg" alt="Artwork 1" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
-            <img class="artwork" onclick="openIG(this)" src="The quiet glamour.jpeg" alt="Artwork 2" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
-            <img class="artwork" onclick="openIG(this)" src="A piece of a dream.jpeg" alt="Artwork 3" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
-            <img class="artwork" onclick="openIG(this)" src="Family.jpeg" alt="Artwork 4" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
-            <img class="artwork" onclick="openIG(this)" src="Flower with elegant vibe.png" alt="Artwork 5" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
-            <img class="artwork" onclick="openIG(this)" src="Blooming Roses.png" alt="Artwork 6" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
-            <img class="artwork" onclick="openIG(this)" src="Fantasy of a girl in bathroom time.png" alt="Artwork 7" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
-        </div>
-
-        <div class="nav-zone next-zone" onclick="changeSlide(1)">
-            <span>›</span>
-        </div>
-    </main>
-
-    <div class="plaque-container">
-        <div class="museum-plaque" id="plaque">
-            <div id="artTitle" class="art-title">All eyes on us</div>
-            <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
-            <div class="art-artist">Yung's Art Lab</div>
-            <div class="ig-hint">↗ CLICK ARTWORK FOR IG</div>
-        </div>
-    </div>
-
-    <div id="counter" class="counter">1 / 7</div>
-
-    <script>
-        let currentIdx = 0;
-        const slides = document.querySelectorAll('.artwork');
-        const titleEl = document.getElementById('artTitle');
-        const metaEl = document.getElementById('artMeta');
-        const counterEl = document.getElementById('counter');
-        const plaque = document.getElementById('plaque');
-
-        function updateLabels() {
-            const currentSlide = slides[currentIdx];
-            
-            plaque.classList.remove('visible');
-            
-            setTimeout(() => {
-                titleEl.textContent = currentSlide.getAttribute('data-title');
-                metaEl.textContent = currentSlide.getAttribute('data-meta');
-                counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
-                plaque.classList.add('visible');
-            }, 400); 
-        }
-
-        function changeSlide(direction) {
-            slides[currentIdx].classList.remove('active');
-            currentIdx = (currentIdx + direction + slides.length) % slides.length;
-            slides[currentIdx].classList.add('active');
-            updateLabels();
-        }
-
-        // 開啟 IG 連結的功能
-        function openIG(imgElement) {
-            const igLink = imgElement.getAttribute('data-ig');
-            if(igLink) {
-                window.open(igLink, '_blank');
-            }
-        }
-
-        setTimeout(() => plaque.classList.add('visible'), 100);
-    </script>
-</body>
-</html>
+        <div class="slide-container" id="gallery-container">
+            <img class="artwork active" onclick="openIG(this)" src="All eyes on us.jpg" alt="Artwork 1" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/yungsartlab/">
+            <img class="artwork" onclick="openIG(this)" src="The quiet glamour.jpeg" alt="Artwork 2" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/yungsartlab/">
+            <img class="artwork" onclick="openIG(this)" src="A piece of a dream.jpeg" alt="Artwork 3" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/yungsartlab/">
+            <img class="artwork" onclick="openIG(this)" src="Family.jpeg" alt="Artwork 4" data-title="Family" data-meta="Acrylic, 202
