@@ -14,6 +14,7 @@
     <meta property="og:url" content="https://yungsartlab.github.io/">
     <meta property="og:type" content="website">
     
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JM5BZF9MBD"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -22,14 +23,15 @@
       gtag('config', 'G-JM5BZF9MBD');
     </script>
     
+    <!-- 引入高雅的美術館字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* 🎨 切換為純白當代藝廊風格 */
-            background-color: #ffffff;
-            color: #111111;
+            /* 🎨 回歸極致純黑背景 */
+            background-color: #000000;
+            color: #ffffff;
             font-family: 'Roboto', sans-serif;
             height: 100vh;
             overflow: hidden;
@@ -50,7 +52,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 18px;
             letter-spacing: 0.15em;
-            color: rgba(17, 17, 17, 0.8); /* 標題換成深色 */
+            color: rgba(255, 255, 255, 0.7); /* 標題換回優雅白 */
             pointer-events: none;
         }
 
@@ -103,10 +105,11 @@
             transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
             transition: transform 0.1s ease-out;
             cursor: crosshair;
-            /* 調整陰影顏色，在白底下看起來更柔和真實 */
-            box-shadow: 0 30px 50px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1);
-            background-color: #111111; /* 🎨 改為黑框，完美與白背景區隔開來 */
-            padding: 12px; 
+            /* 讓立體陰影在純黑背景下隱形，只靠光影表現 */
+            box-shadow: 0 40px 70px rgba(0,0,0,0.9);
+            /* ⚠️ 徹底移除所有背景色與外邊框 padding，讓畫作純粹呈現 */
+            background-color: transparent; 
+            padding: 0; 
         }
 
         /* 畫作圖片限制 */
@@ -121,11 +124,11 @@
             pointer-events: none;
         }
 
-        /* 3D 前衛光影反光 (白底下光影改為柔和亮光) */
+        /* 3D 前衛光影反光 */
         .glare {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 60%);
+            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 60%);
             mix-blend-mode: overlay;
             opacity: 0;
             transition: opacity 0.3s;
@@ -137,7 +140,7 @@
             opacity: 1;
         }
 
-        /* 右側：白底黑字電商風格資訊面板 */
+        /* 右側：黑底白字資訊面板 */
         .info-panel {
             position: absolute;
             right: 10%;
@@ -159,14 +162,14 @@
             font-size: 42px;
             font-weight: 400;
             margin-bottom: 15px;
-            color: #111111; /* 文字改黑 */
+            color: #ffffff; /* 文字換回白 */
             line-height: 1.1;
         }
 
         .art-meta {
             font-family: 'Roboto', sans-serif;
             font-size: 14px;
-            color: #666666; /* 調整為優雅暗灰 */
+            color: #aaaaaa; /* 優雅暗灰 */
             margin-bottom: 30px;
             letter-spacing: 0.05em;
         }
@@ -175,16 +178,16 @@
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
             line-height: 1.8;
-            color: #444444; 
+            color: #888888; 
             margin-bottom: 40px;
         }
 
-        /* 詢價與 IG 導覽按鈕（改為黑框黑字） */
+        /* 詢價與 IG 導覽按鈕（換回白框白字） */
         .buy-btn {
             display: inline-block;
-            border: 1px solid #111111;
+            border: 1px solid #ffffff;
             padding: 14px 35px;
-            color: #111111;
+            color: #ffffff;
             text-transform: uppercase;
             font-size: 11px;
             letter-spacing: 2px;
@@ -193,8 +196,8 @@
         }
 
         .buy-btn:hover {
-            background-color: #111111;
-            color: #ffffff;
+            background-color: #ffffff;
+            color: #000000;
         }
 
         /* 隱形左右換圖點擊區 */
@@ -207,13 +210,13 @@
         .prev-zone { left: 0; justify-content: flex-start; padding-left: 40px;}
         .next-zone { right: 0; justify-content: flex-end; padding-right: 40px;}
 
-        /* 換圖箭頭改為淡黑色 */
-        .nav-zone span { font-size: 40px; font-weight: 100; color: rgba(17,17,17,0.05); transition: 0.4s; }
-        .nav-zone:hover span { color: rgba(17,17,17,0.8); }
+        /* 換圖箭頭改回淡白色 */
+        .nav-zone span { font-size: 40px; font-weight: 100; color: rgba(255,255,255,0.05); transition: 0.4s; }
+        .nav-zone:hover span { color: rgba(255,255,255,0.7); }
 
         .counter {
             position: absolute; bottom: 40px; left: 40px;
-            font-size: 14px; color: rgba(17,17,17,0.3); letter-spacing: 2px;
+            font-size: 14px; color: rgba(255,255,255,0.3); letter-spacing: 2px;
         }
 
         /* 📱 手機版響應式自動調整 */
@@ -221,7 +224,7 @@
             .nav-zone, .counter { display: none; } 
             .slide-container { width: 100%; left: 0; top: -5vh; }
             .artwork-group { width: 80vw; max-width: none; }
-            .tilt-box { padding: 8px; }
+            .tilt-box { padding: 0; }
             .tilt-box img { max-height: 48vh; }
             
             .info-panel {
@@ -233,7 +236,7 @@
             }
             .art-title { font-size: 32px; }
             .art-desc { display: none; }
-            .buy-btn { width: 100%; background-color: #fff; padding: 12px 0; }
+            .buy-btn { width: 100%; padding: 12px 0; }
         }
     </style>
 </head>
@@ -244,9 +247,11 @@
     </header>
 
     <main id="touch-area">
+        <!-- 左邊換圖點擊區 (電腦版) -->
         <div class="nav-zone prev-zone" onclick="changeSlide(-1)"><span>‹</span></div>
         
         <div class="slide-container">
+            <!-- 畫作 1 -->
             <div class="artwork-group active" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -254,6 +259,7 @@
                 </div>
             </div>
             
+            <!-- 畫作 2 -->
             <div class="artwork-group" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -261,6 +267,7 @@
                 </div>
             </div>
             
+            <!-- 畫作 3 -->
             <div class="artwork-group" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -268,6 +275,7 @@
                 </div>
             </div>
             
+            <!-- 畫作 4 -->
             <div class="artwork-group" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -275,6 +283,7 @@
                 </div>
             </div>
             
+            <!-- 畫作 5 -->
             <div class="artwork-group" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -282,6 +291,7 @@
                 </div>
             </div>
             
+            <!-- 畫作 6 -->
             <div class="artwork-group" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -289,17 +299,20 @@
                 </div>
             </div>
             
+            <!-- 畫作 7 -->
             <div class="artwork-group" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
                 <div class="tilt-box">
                     <div class="glare"></div>
-                    <img src="Fantasy of a girl in bathroom time.png" alt="Fantasy of a girl in bathroom time 女孩沐浴時光的幻想 - 2025 壓克力畫 Acrylic">
+                    <img src="Fantasy of a girl in bathroom time.png" alt="Fantasy of a girl in bathroom time 女階沐浴時光的幻想 - 2025 壓克力畫 Acrylic">
                 </div>
             </div>
         </div>
 
+        <!-- 右邊換圖點擊區 (電腦版) -->
         <div class="nav-zone next-zone" onclick="changeSlide(1)"><span>›</span></div>
     </main>
 
+    <!-- 右側資訊面板 -->
     <div class="info-panel" id="infoPanel">
         <div id="artTitle" class="art-title">All eyes on us</div>
         <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
@@ -338,7 +351,6 @@
             updateLabels();
         }
 
-        // 開啟當前畫作的 IG 連結
         function openCurrentIG() {
             const igLink = slides[currentIdx].getAttribute('data-ig');
             if(igLink) window.open(igLink, '_blank');
