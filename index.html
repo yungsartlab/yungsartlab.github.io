@@ -24,248 +24,132 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
-       <div class="slide-container">
-            <div class="artwork-group active" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="All eyes on us.jpg" alt="All eyes on us 眾所矚目">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="The quiet glamour.jpeg" alt="The quiet glamour 靜謐風華">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="A piece of a dream.jpeg" alt="A piece of a dream 夢境一隅">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Family.jpeg" alt="Family 家人">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Flower with elegant vibe.png" alt="Flower with elegant vibe 優雅花卉">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Blooming Roses.png" alt="Blooming Roses 盛開的玫瑰">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Fantasy of a girl in bathroom time.png" alt="Fantasy of a girl in bathroom time 女孩沐浴時光的幻想">
-                </div>
-            </div>
-        </div>
-    </style>
-</head>
-<body>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <header>
-        <h1>YUNG'S ART LAB</h1>
-    </header>
-
-    <main id="touch-area">
-        <div class="nav-zone prev-zone" onclick="changeSlide(-1)"><span>‹</span></div>
-        
-        <div class="slide-container">
-            <div class="artwork-group active" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="All eyes on us.jpg" alt="All eyes on us 眾所矚目">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="All eyes on us.jpg" style="object-position: 20% 20%;">
-                    <img src="All eyes on us.jpg" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="The quiet glamour.jpeg" alt="The quiet glamour 靜謐風華">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="The quiet glamour.jpeg" style="object-position: 30% 30%;">
-                    <img src="The quiet glamour.jpeg" style="object-position: 70% 70%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="A piece of a dream.jpeg" alt="A piece of a dream 夢境一隅">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="A piece of a dream.jpeg" style="object-position: 20% 20%;">
-                    <img src="A piece of a dream.jpeg" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Family.jpeg" alt="Family 家人">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="Family.jpeg" style="object-position: 20% 20%;">
-                    <img src="Family.jpeg" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Flower with elegant vibe.png" alt="Flower with elegant vibe 優雅花卉">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="Flower with elegant vibe.png" style="object-position: 20% 20%;">
-                    <img src="Flower with elegant vibe.png" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Blooming Roses.png" alt="Blooming Roses 盛開的玫瑰">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="Blooming Roses.png" style="object-position: 20% 20%;">
-                    <img src="Blooming Roses.png" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Fantasy of a girl in bathroom time.png" alt="Fantasy of a girl in bathroom time 女孩沐浴時光的幻想">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="Fantasy of a girl in bathroom time.png" style="object-position: 20% 20%;">
-                    <img src="Fantasy of a girl in bathroom time.png" style="object-position: 80% 80%;">
-                </div>
-            </div>
-        </div>
-
-        <div class="nav-zone next-zone" onclick="changeSlide(1)"><span>›</span></div>
-    </main>
-
-    <div class="info-panel" id="infoPanel">
-        <div id="artTitle" class="art-title">All eyes on us</div>
-        <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
-        <div class="art-desc">
-            A reflection of internal dialogue and the profound sense of being observed. This piece marks a significant turning point in my creative journey.
-        </div>
-        <div class="buy-btn" onclick="openCurrentIG()">INQUIRE / VIEW ON IG</div>
-    </div>
-
-    <div id="counter" class="counter">1 / 7</div>
-
-    <script>
-        let currentIdx = 0;
-        const slides = document.querySelectorAll('.artwork-group');
-        const titleEl = document.getElementById('artTitle');
-        const metaEl = document.getElementById('artMeta');
-        const counterEl = document.getElementById('counter');
-        const infoPanel = document.getElementById('infoPanel');
-
-        function updateLabels() {
-            const currentSlide = slides[currentIdx];
-            infoPanel.classList.remove('visible');
-            
-            setTimeout(() => {
-                titleEl.textContent = currentSlide.getAttribute('data-title');
-                metaEl.textContent = currentSlide.getAttribute('data-meta');
-                counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
-                infoPanel.classList.add('visible');
-            }, 500); 
+        body {
+            background: radial-gradient(circle at 50% 40%, #2a2a2a 0%, #050505 100%);
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        function changeSlide(direction) {
-            slides[currentIdx].classList.remove('active');
-            currentIdx = (currentIdx + direction + slides.length) % slides.length;
-            slides[currentIdx].classList.add('active');
-            updateLabels();
+        header {
+            padding: 30px 40px;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
         }
 
-        // 開啟當前畫作的 IG 連結 (綁定在右側按鈕上)
-        function openCurrentIG() {
-            const igLink = slides[currentIdx].getAttribute('data-ig');
-            if(igLink) window.open(igLink, '_blank');
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            touch-action: pan-y;
         }
 
-        // 啟動 3D 滑鼠互動特效
-        const tiltBoxes = document.querySelectorAll('.tilt-box');
-        tiltBoxes.forEach(box => {
-            box.addEventListener('mousemove', (e) => {
-                const rect = box.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const cx = rect.width / 2;
-                const cy = rect.height / 2;
-                
-                const rx = ((y - cy) / cy) * -10; // 傾斜角度
-                const ry = ((x - cx) / cx) * 10;
+        /* 左側圖片容器：安全偏移 20px 避開標題 */
+        .slide-container {
+            width: 60%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            left: 2%; 
+            top: 20px; 
+        }
 
-                box.style.setProperty('--rx', `${rx}deg`);
-                box.style.setProperty('--ry', `${ry}deg`);
-                box.style.setProperty('--mx', `${(x / rect.width) * 100}%`);
-                box.style.setProperty('--my', `${(y / rect.height) * 100}%`);
-            });
+        /* 每一幅作品的獨立群組（大圖） */
+        .artwork-group {
+            position: absolute;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+            width: 100%;
+            max-width: 480px; /* 大氣、飽滿的視覺規格 */
+            z-index: 1;
+        }
 
-            box.addEventListener('mouseleave', () => {
-                box.style.setProperty('--rx', `0deg`);
-                box.style.setProperty('--ry', `0deg`);
-                box.style.setProperty('--mx', `50%`);
-                box.style.setProperty('--my', `50%`);
-            });
-        });
+        .artwork-group.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            z-index: 5;
+        }
 
-        // 鍵盤左右切換
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') changeSlide(-1);
-            if (e.key === 'ArrowRight') changeSlide(1);
-        });
+        /* 3D 畫布本體 */
+        .tilt-box {
+            position: relative;
+            width: 100%;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+            transition: transform 0.1s ease-out;
+            cursor: crosshair;
+            box-shadow: 0 35px 60px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.5);
+            background-color: #fafafa;
+            padding: 12px; /* 高質感的實體白畫框厚度 */
+        }
 
-        // 手機觸控滑動切換
-        const touchArea = document.getElementById('touch-area');
-        let touchStartX = 0, touchStartY = 0;
+        /* 畫作圖片限制：維持最棒的看圖比例 */
+        .tilt-box img {
+            width: 100%;
+            max-height: 68vh; 
+            object-fit: contain; 
+            display: block;
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+            user-drag: none;
+            pointer-events: none;
+        }
 
-        touchArea.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-        }, { passive: true });
+        /* 3D 前衛光影反光 */
+        .glare {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
+            mix-blend-mode: overlay;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 2;
+        }
 
-        touchArea.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].screenX;
-            const touchEndY = e.changedTouches[0].screenY;
-            const xDiff = touchEndX - touchStartX;
-            const yDiff = touchEndY - touchStartY;
-            
-            if (Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > 30) {
-                if (xDiff > 0) changeSlide(-1);
-                else changeSlide(1); 
-            }
-        });
+        .tilt-box:hover .glare {
+            opacity: 1;
+        }
 
-        setTimeout(() => infoPanel.classList.add('visible'), 200);
-    </script>
-</body>
-</html>
+        /* 右側：現代電商風格資訊面板 */
+        .info-panel {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-45%);
+            width: 320px;
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .info-panel.visible {
+            opacity: 1;
+            transform: translateY(-50%);
+        }
+
+        .art-title {
