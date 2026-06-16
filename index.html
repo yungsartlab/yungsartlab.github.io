@@ -24,237 +24,56 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background: radial-gradient(circle at 50% 40%, #2a2a2a 0%, #050505 100%);
-            color: #fff;
-            font-family: 'Roboto', sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        header {
-            padding: 30px 40px;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-        }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            letter-spacing: 0.15em;
-            color: rgba(255, 255, 255, 0.7);
-            pointer-events: none;
-        }
-
-        main {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            position: relative;
-            width: 100%;
-            height: 100%;
-            touch-action: pan-y;
-            padding-top: 40px; /* 增加上方緩衝，絕對不擋標題 */
-        }
-
-        .slide-container {
-            width: 55%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            left: 5%; 
-        }
-
-        /* 🖼️ 畫作群組修改：整體縮小，減少間距 */
-        .artwork-group {
-            position: absolute;
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-            transition: opacity 1s ease, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px; /* 縮小主圖與小圖的間距 */
-            width: 100%;
-            max-width: 320px; /* 從 420px 大幅縮小，確保筆電螢幕能完全塞下 */
-            z-index: 1;
-        }
-
-        .artwork-group.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: auto;
-            z-index: 5;
-        }
-
-        .tilt-box {
-            position: relative;
-            width: 100%;
-            transform-style: preserve-3d;
-            transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-            transition: transform 0.1s ease-out;
-            cursor: crosshair;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.6), 0 10px 15px rgba(0,0,0,0.4);
-            background-color: #fafafa;
-            padding: 8px; /* 邊框稍微改細一點，比例更好看 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* 🖼️ 主圖修改：強制高度限制 */
-        .tilt-box img {
-            width: 100%;
-            max-height: 50vh; /* 魔法指令：主圖高度絕對不超過螢幕的一半 */
-            object-fit: contain; /* 確保畫布比例不變形 */
-            display: block;
-            -webkit-user-drag: none;
-            -webkit-touch-callout: none;
-            user-drag: none;
-            pointer-events: none;
-        }
-
-        .glare {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
-            mix-blend-mode: overlay;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .tilt-box:hover .glare {
-            opacity: 1;
-        }
-
-        .thumbnail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            width: 100%;
-        }
-
-        /* 🖼️ 小圖修改：高度調低，讓出空間 */
-        .thumbnail-grid img {
-            width: 100%;
-            height: 75px; /* 從 120px 大幅調降 */
-            object-fit: cover; 
-            background-color: #fafafa;
-            padding: 4px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.4);
-            display: block;
-            -webkit-user-drag: none;
-            -webkit-touch-callout: none;
-            user-drag: none;
-            pointer-events: none;
-        }
-
-        /* 右側資訊面板 */
-        .info-panel {
-            position: absolute;
-            right: 12%;
-            top: 50%;
-            transform: translateY(-45%);
-            width: 320px;
-            z-index: 20;
-            opacity: 0;
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .info-panel.visible {
-            opacity: 1;
-            transform: translateY(-50%);
-        }
-
-        .art-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 38px; /* 標題稍微縮小一點點配合整體比例 */
-            font-weight: 400;
-            margin-bottom: 12px;
-            color: #fff;
-            line-height: 1.1;
-        }
-
-        .art-meta {
-            font-family: 'Roboto', sans-serif;
-            font-size: 13px;
-            color: #aaa;
-            margin-bottom: 25px;
-            letter-spacing: 0.05em;
-        }
-
-        .art-desc {
-            font-family: 'Roboto', sans-serif;
-            font-size: 13px;
-            line-height: 1.8;
-            color: #888;
-            margin-bottom: 35px;
-        }
-
-        .buy-btn {
-            display: inline-block;
-            border: 1px solid #fff;
-            padding: 12px 30px;
-            color: #fff;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .buy-btn:hover {
-            background-color: #fff;
-            color: #000;
-        }
-
-        .nav-zone {
-            position: absolute;
-            top: 0; height: 100%; width: 15%; 
-            cursor: pointer; z-index: 10;
-            display: flex; align-items: center;
-        }
-        .prev-zone { left: 0; justify-content: flex-start; padding-left: 40px;}
-        .next-zone { right: 0; justify-content: flex-end; padding-right: 40px;}
-
-        .nav-zone span { font-size: 40px; font-weight: 100; color: rgba(255,255,255,0.05); transition: 0.4s; }
-        .nav-zone:hover span { color: rgba(255,255,255,0.7); }
-
-        .counter {
-            position: absolute; bottom: 40px; left: 40px;
-            font-size: 14px; color: rgba(255,255,255,0.3); letter-spacing: 2px;
-        }
-
-        /* 手機版響應式設計 */
-        @media (max-width: 768px) {
-            .nav-zone, .counter { display: none; } 
-            .slide-container { width: 100%; left: 0; top: -8vh; }
-            .artwork-group { width: 70vw; max-width: none; gap: 10px; }
-            .thumbnail-grid { gap: 10px; }
-            .thumbnail-grid img { height: 60px; }
+       <div class="slide-container">
+            <div class="artwork-group active" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="All eyes on us.jpg" alt="All eyes on us 眾所矚目">
+                </div>
+            </div>
             
-            .info-panel {
-                right: 0; left: 0; bottom: 5%; top: auto;
-                width: 100%;
-                transform: none !important;
-                text-align: center;
-                padding: 0 30px;
-            }
-            .art-title { font-size: 28px; }
-            .art-desc { display: none; }
-            .buy-btn { width: 100%; padding: 12px 0; }
-        }
+            <div class="artwork-group" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="The quiet glamour.jpeg" alt="The quiet glamour 靜謐風華">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="A piece of a dream.jpeg" alt="A piece of a dream 夢境一隅">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="Family.jpeg" alt="Family 家人">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="Flower with elegant vibe.png" alt="Flower with elegant vibe 優雅花卉">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="Blooming Roses.png" alt="Blooming Roses 盛開的玫瑰">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="Fantasy of a girl in bathroom time.png" alt="Fantasy of a girl in bathroom time 女孩沐浴時光的幻想">
+                </div>
+            </div>
+        </div>
     </style>
 </head>
 <body>
