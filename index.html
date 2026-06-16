@@ -1,33 +1,7 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Yung's Art Lab | Exhibition</title>
-    <meta name="description" content="Welcome to my Art Lab where oil meets acrylic, and reality blends with fantasy.">
-    <meta name="keywords" content="Yung's Art Lab, berlin artist, surreal artist, oil painting, contemporary art, 藝術家, 油畫, 壓克力畫, 當代藝術, 線上畫廊">
-    <meta name="author" content="Yung's Art Lab">
-
-    <meta property="og:title" content="Yung's Art Lab | Cinematic Virtual Exhibition">
-    <meta property="og:description" content="Welcome to my Art Lab where oil meets acrylic, and reality blends with fantasy.">
-    <meta property="og:image" content="https://yungsartlab.github.io/All eyes on us.jpg">
-    <meta property="og:url" content="https://yungsartlab.github.io/">
-    <meta property="og:type" content="website">
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JM5BZF9MBD"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-JM5BZF9MBD');
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-    <style>
+<style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* 畫廊打光效果 */
             background: radial-gradient(circle at 50% 40%, #2a2a2a 0%, #050505 100%);
             color: #fff;
             font-family: 'Roboto', sans-serif;
@@ -62,9 +36,9 @@
             width: 100%;
             height: 100%;
             touch-action: pan-y;
+            padding-top: 40px; /* 增加上方緩衝，絕對不擋標題 */
         }
 
-        /* 重新排版：將滑動圖片區移到左半邊 */
         .slide-container {
             width: 55%;
             height: 100%;
@@ -72,10 +46,10 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            left: 5%; /* 稍微靠左 */
+            left: 5%; 
         }
 
-        /* 畫作群組 (包含主圖與兩張小圖) */
+        /* 🖼️ 畫作群組修改：整體縮小，減少間距 */
         .artwork-group {
             position: absolute;
             opacity: 0;
@@ -84,9 +58,9 @@
             pointer-events: none;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 12px; /* 縮小主圖與小圖的間距 */
             width: 100%;
-            max-width: 420px; /* 控制畫作最大寬度 */
+            max-width: 320px; /* 從 420px 大幅縮小，確保筆電螢幕能完全塞下 */
             z-index: 1;
         }
 
@@ -97,7 +71,6 @@
             z-index: 5;
         }
 
-        /* 3D 主畫作容器 */
         .tilt-box {
             position: relative;
             width: 100%;
@@ -105,14 +78,19 @@
             transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
             transition: transform 0.1s ease-out;
             cursor: crosshair;
-            box-shadow: 0 35px 60px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.6), 0 10px 15px rgba(0,0,0,0.4);
             background-color: #fafafa;
-            padding: 10px;
+            padding: 8px; /* 邊框稍微改細一點，比例更好看 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* 徹底禁止手機長按下載 */
-        .tilt-box img, .thumbnail-grid img {
+        /* 🖼️ 主圖修改：強制高度限制 */
+        .tilt-box img {
             width: 100%;
+            max-height: 50vh; /* 魔法指令：主圖高度絕對不超過螢幕的一半 */
+            object-fit: contain; /* 確保畫布比例不變形 */
             display: block;
             -webkit-user-drag: none;
             -webkit-touch-callout: none;
@@ -120,7 +98,6 @@
             pointer-events: none;
         }
 
-        /* 光影反光特效 */
         .glare {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -136,23 +113,29 @@
             opacity: 1;
         }
 
-        /* 兩小格局部細節圖 */
         .thumbnail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 12px;
             width: 100%;
         }
 
+        /* 🖼️ 小圖修改：高度調低，讓出空間 */
         .thumbnail-grid img {
-            height: 120px;
-            object-fit: cover; /* 自動裁切填滿 */
+            width: 100%;
+            height: 75px; /* 從 120px 大幅調降 */
+            object-fit: cover; 
             background-color: #fafafa;
-            padding: 5px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 4px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+            display: block;
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+            user-drag: none;
+            pointer-events: none;
         }
 
-        /* 右側：現代電商風格的資訊面板 */
+        /* 右側資訊面板 */
         .info-panel {
             position: absolute;
             right: 12%;
@@ -171,18 +154,18 @@
 
         .art-title {
             font-family: 'Playfair Display', serif;
-            font-size: 42px;
+            font-size: 38px; /* 標題稍微縮小一點點配合整體比例 */
             font-weight: 400;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: #fff;
             line-height: 1.1;
         }
 
         .art-meta {
             font-family: 'Roboto', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             color: #aaa;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             letter-spacing: 0.05em;
         }
 
@@ -191,14 +174,13 @@
             font-size: 13px;
             line-height: 1.8;
             color: #888;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
-        /* 偽裝成購物車的按鈕 */
         .buy-btn {
             display: inline-block;
             border: 1px solid #fff;
-            padding: 14px 35px;
+            padding: 12px 30px;
             color: #fff;
             text-transform: uppercase;
             font-size: 11px;
@@ -212,7 +194,6 @@
             color: #000;
         }
 
-        /* 隱形導覽區 */
         .nav-zone {
             position: absolute;
             top: 0; height: 100%; width: 15%; 
@@ -232,12 +213,11 @@
 
         /* 手機版響應式設計 */
         @media (max-width: 768px) {
-            .nav-zone { display: none; } 
-            .counter { display: none; } 
-            .slide-container { width: 100%; left: 0; top: -10vh; }
-            .artwork-group { width: 75vw; max-width: none; gap: 15px; }
-            .thumbnail-grid { gap: 15px; }
-            .thumbnail-grid img { height: 80px; }
+            .nav-zone, .counter { display: none; } 
+            .slide-container { width: 100%; left: 0; top: -8vh; }
+            .artwork-group { width: 70vw; max-width: none; gap: 10px; }
+            .thumbnail-grid { gap: 10px; }
+            .thumbnail-grid img { height: 60px; }
             
             .info-panel {
                 right: 0; left: 0; bottom: 5%; top: auto;
@@ -246,202 +226,8 @@
                 text-align: center;
                 padding: 0 30px;
             }
-            .art-title { font-size: 32px; }
-            .art-desc { display: none; /* 手機空間小，隱藏描述 */ }
+            .art-title { font-size: 28px; }
+            .art-desc { display: none; }
             .buy-btn { width: 100%; padding: 12px 0; }
         }
     </style>
-</head>
-<body>
-
-    <header>
-        <h1>YUNG'S ART LAB</h1>
-    </header>
-
-    <main id="touch-area">
-        <div class="nav-zone prev-zone" onclick="changeSlide(-1)"><span>‹</span></div>
-        
-        <div class="slide-container">
-            <div class="artwork-group active" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="All eyes on us.jpg" alt="All eyes on us 眾所矚目">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="All eyes on us.jpg" style="object-position: 20% 20%;">
-                    <img src="All eyes on us.jpg" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="The quiet glamour.jpeg" alt="The quiet glamour 靜謐風華">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="The quiet glamour.jpeg" style="object-position: 30% 30%;">
-                    <img src="The quiet glamour.jpeg" style="object-position: 70% 70%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="A piece of a dream.jpeg" alt="A piece of a dream 夢境一隅">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="A piece of a dream.jpeg" style="object-position: 20% 20%;">
-                    <img src="A piece of a dream.jpeg" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Family.jpeg" alt="Family 家人">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="Family.jpeg" style="object-position: 20% 20%;">
-                    <img src="Family.jpeg" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Flower with elegant vibe.png" alt="Flower with elegant vibe 優雅花卉">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="Flower with elegant vibe.png" style="object-position: 20% 20%;">
-                    <img src="Flower with elegant vibe.png" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Blooming Roses.png" alt="Blooming Roses 盛開的玫瑰">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="Blooming Roses.png" style="object-position: 20% 20%;">
-                    <img src="Blooming Roses.png" style="object-position: 80% 80%;">
-                </div>
-            </div>
-            
-            <div class="artwork-group" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
-                <div class="tilt-box">
-                    <div class="glare"></div>
-                    <img src="Fantasy of a girl in bathroom time.png" alt="Fantasy of a girl in bathroom time 女孩沐浴時光的幻想">
-                </div>
-                <div class="thumbnail-grid">
-                    <img src="Fantasy of a girl in bathroom time.png" style="object-position: 20% 20%;">
-                    <img src="Fantasy of a girl in bathroom time.png" style="object-position: 80% 80%;">
-                </div>
-            </div>
-        </div>
-
-        <div class="nav-zone next-zone" onclick="changeSlide(1)"><span>›</span></div>
-    </main>
-
-    <div class="info-panel" id="infoPanel">
-        <div id="artTitle" class="art-title">All eyes on us</div>
-        <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
-        <div class="art-desc">
-            A reflection of internal dialogue and the profound sense of being observed. This piece marks a significant turning point in my creative journey.
-        </div>
-        <div class="buy-btn" onclick="openCurrentIG()">INQUIRE / VIEW ON IG</div>
-    </div>
-
-    <div id="counter" class="counter">1 / 7</div>
-
-    <script>
-        let currentIdx = 0;
-        const slides = document.querySelectorAll('.artwork-group');
-        const titleEl = document.getElementById('artTitle');
-        const metaEl = document.getElementById('artMeta');
-        const counterEl = document.getElementById('counter');
-        const infoPanel = document.getElementById('infoPanel');
-
-        function updateLabels() {
-            const currentSlide = slides[currentIdx];
-            infoPanel.classList.remove('visible');
-            
-            setTimeout(() => {
-                titleEl.textContent = currentSlide.getAttribute('data-title');
-                metaEl.textContent = currentSlide.getAttribute('data-meta');
-                counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
-                infoPanel.classList.add('visible');
-            }, 500); 
-        }
-
-        function changeSlide(direction) {
-            slides[currentIdx].classList.remove('active');
-            currentIdx = (currentIdx + direction + slides.length) % slides.length;
-            slides[currentIdx].classList.add('active');
-            updateLabels();
-        }
-
-        // 開啟當前畫作的 IG 連結 (綁定在右側按鈕上)
-        function openCurrentIG() {
-            const igLink = slides[currentIdx].getAttribute('data-ig');
-            if(igLink) window.open(igLink, '_blank');
-        }
-
-        // 啟動 3D 滑鼠互動特效
-        const tiltBoxes = document.querySelectorAll('.tilt-box');
-        tiltBoxes.forEach(box => {
-            box.addEventListener('mousemove', (e) => {
-                const rect = box.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const cx = rect.width / 2;
-                const cy = rect.height / 2;
-                
-                const rx = ((y - cy) / cy) * -10; // 傾斜角度
-                const ry = ((x - cx) / cx) * 10;
-
-                box.style.setProperty('--rx', `${rx}deg`);
-                box.style.setProperty('--ry', `${ry}deg`);
-                box.style.setProperty('--mx', `${(x / rect.width) * 100}%`);
-                box.style.setProperty('--my', `${(y / rect.height) * 100}%`);
-            });
-
-            box.addEventListener('mouseleave', () => {
-                box.style.setProperty('--rx', `0deg`);
-                box.style.setProperty('--ry', `0deg`);
-                box.style.setProperty('--mx', `50%`);
-                box.style.setProperty('--my', `50%`);
-            });
-        });
-
-        // 鍵盤左右切換
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') changeSlide(-1);
-            if (e.key === 'ArrowRight') changeSlide(1);
-        });
-
-        // 手機觸控滑動切換
-        const touchArea = document.getElementById('touch-area');
-        let touchStartX = 0, touchStartY = 0;
-
-        touchArea.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-        }, { passive: true });
-
-        touchArea.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].screenX;
-            const touchEndY = e.changedTouches[0].screenY;
-            const xDiff = touchEndX - touchStartX;
-            const yDiff = touchEndY - touchStartY;
-            
-            if (Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > 30) {
-                if (xDiff > 0) changeSlide(-1);
-                else changeSlide(1); 
-            }
-        });
-
-        setTimeout(() => infoPanel.classList.add('visible'), 200);
-    </script>
-</body>
-</html>
