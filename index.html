@@ -153,3 +153,249 @@
         }
 
         .art-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 400;
+            margin-bottom: 15px;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .art-meta {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 30px;
+            letter-spacing: 0.05em;
+        }
+
+        .art-desc {
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        /* 詢價與 IG 導覽按鈕 */
+        .buy-btn {
+            display: inline-block;
+            border: 1px solid #fff;
+            padding: 14px 35px;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* 隱形左右換圖點擊區 */
+        .nav-zone {
+            position: absolute;
+            top: 0; height: 100%; width: 15%; 
+            cursor: pointer; z-index: 10;
+            display: flex; align-items: center;
+        }
+        .prev-zone { left: 0; justify-content: flex-start; padding-left: 40px;}
+        .next-zone { right: 0; justify-content: flex-end; padding-right: 40px;}
+
+        .nav-zone span { font-size: 40px; font-weight: 100; color: rgba(255,255,255,0.05); transition: 0.4s; }
+        .nav-zone:hover span { color: rgba(255,255,255,0.7); }
+
+        .counter {
+            position: absolute; bottom: 40px; left: 40px;
+            font-size: 14px; color: rgba(255,255,255,0.3); letter-spacing: 2px;
+        }
+
+        /* 📱 手機版響應式自動調整 */
+        @media (max-width: 768px) {
+            .nav-zone, .counter { display: none; } 
+            .slide-container { width: 100%; left: 0; top: -5vh; }
+            .artwork-group { width: 80vw; max-width: none; }
+            .tilt-box { padding: 8px; }
+            .tilt-box img { max-height: 48vh; }
+            
+            .info-panel {
+                right: 0; left: 0; bottom: 5%; top: auto;
+                width: 100%;
+                transform: none !important;
+                text-align: center;
+                padding: 0 30px;
+            }
+            .art-title { font-size: 32px; }
+            .art-desc { display: none; }
+            .buy-btn { width: 100%; padding: 12px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>YUNG'S ART LAB</h1>
+    </header>
+
+    <main id="touch-area">
+        <div class="nav-zone prev-zone" onclick="changeSlide(-1)"><span>‹</span></div>
+        
+        <div class="slide-container">
+            <div class="artwork-group active" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="All eyes on us.jpg" alt="All eyes on us 眾所矚目 - 2026 油畫 Oil on Canvas">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="The quiet glamour.jpeg" alt="The quiet glamour 靜謐風華 - 2025 壓克力畫 Acrylic">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="A piece of a dream.jpeg" alt="A piece of a dream 夢境一隅 - 2025 油畫 Oil on Canvas">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="Family.jpeg" alt="Family 家人 - 2025 壓克力畫 Acrylic">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="Flower with elegant vibe.png" alt="Flower with elegant vibe 優雅花卉 - 2025 壓克力畫 Acrylic">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="Blooming Roses.png" alt="Blooming Roses 盛開的玫瑰 - 2025 壓克力畫 Acrylic">
+                </div>
+            </div>
+            
+            <div class="artwork-group" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
+                <div class="tilt-box">
+                    <div class="glare"></div>
+                    <img src="Fantasy of a girl in bathroom time.png" alt="Fantasy of a girl in bathroom time 女孩沐浴時光的幻想 - 2025 壓克力畫 Acrylic">
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-zone next-zone" onclick="changeSlide(1)"><span>›</span></div>
+    </main>
+
+    <div class="info-panel" id="infoPanel">
+        <div id="artTitle" class="art-title">All eyes on us</div>
+        <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
+        <div class="art-desc">
+            A reflection of internal dialogue and the profound sense of being observed. This piece marks a significant turning point in my creative journey.
+        </div>
+        <div class="buy-btn" onclick="openCurrentIG()">INQUIRE / VIEW ON IG</div>
+    </div>
+
+    <div id="counter" class="counter">1 / 7</div>
+
+    <script>
+        let currentIdx = 0;
+        const slides = document.querySelectorAll('.artwork-group');
+        const titleEl = document.getElementById('artTitle');
+        const metaEl = document.getElementById('artMeta');
+        const counterEl = document.getElementById('counter');
+        const infoPanel = document.getElementById('infoPanel');
+
+        function updateLabels() {
+            const currentSlide = slides[currentIdx];
+            infoPanel.classList.remove('visible');
+            
+            setTimeout(() => {
+                titleEl.textContent = currentSlide.getAttribute('data-title');
+                metaEl.textContent = currentSlide.getAttribute('data-meta');
+                counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
+                infoPanel.classList.add('visible');
+            }, 500); 
+        }
+
+        function changeSlide(direction) {
+            slides[currentIdx].classList.remove('active');
+            currentIdx = (currentIdx + direction + slides.length) % slides.length;
+            slides[currentIdx].classList.add('active');
+            updateLabels();
+        }
+
+        // 開啟當前畫作的 IG 連結
+        function openCurrentIG() {
+            const igLink = slides[currentIdx].getAttribute('data-ig');
+            if(igLink) window.open(igLink, '_blank');
+        }
+
+        // 啟動 3D 滑鼠互動與反光特效
+        const tiltBoxes = document.querySelectorAll('.tilt-box');
+        tiltBoxes.forEach(box => {
+            box.addEventListener('mousemove', (e) => {
+                const rect = box.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const cx = rect.width / 2;
+                const cy = rect.height / 2;
+                
+                const rx = ((y - cy) / cy) * -10; 
+                const ry = ((x - cx) / cx) * 10;
+
+                box.style.setProperty('--rx', `${rx}deg`);
+                box.style.setProperty('--ry', `${ry}deg`);
+                box.style.setProperty('--mx', `${(x / rect.width) * 100}%`);
+                box.style.setProperty('--my', `${(y / rect.height) * 100}%`);
+            });
+
+            box.addEventListener('mouseleave', () => {
+                box.style.setProperty('--rx', `0deg`);
+                box.style.setProperty('--ry', `0deg`);
+                box.style.setProperty('--mx', `50%`);
+                box.style.setProperty('--my', `50%`);
+            });
+        });
+
+        // 鍵盤左右切換
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // 手機觸控滑動切換
+        const touchArea = document.getElementById('touch-area');
+        let touchStartX = 0, touchStartY = 0;
+
+        touchArea.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        touchArea.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].screenX;
+            const touchEndY = e.changedTouches[0].screenY;
+            const xDiff = touchEndX - touchStartX;
+            const yDiff = touchEndY - touchStartY;
+            
+            if (Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > 30) {
+                if (xDiff > 0) changeSlide(-1);
+                else changeSlide(1); 
+            }
+        });
+
+        setTimeout(() => infoPanel.classList.add('visible'), 200);
+    </script>
+</body>
+</html>
