@@ -29,7 +29,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* 🎨 回歸極致純黑背景 */
             background-color: #000000;
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
@@ -52,7 +51,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 18px;
             letter-spacing: 0.15em;
-            color: rgba(255, 255, 255, 0.7); /* 標題換回優雅白 */
+            color: rgba(255, 255, 255, 0.7);
             pointer-events: none;
         }
 
@@ -105,9 +104,7 @@
             transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
             transition: transform 0.1s ease-out;
             cursor: crosshair;
-            /* 讓立體陰影在純黑背景下隱形，只靠光影表現 */
             box-shadow: 0 40px 70px rgba(0,0,0,0.9);
-            /* ⚠️ 徹底移除所有背景色與外邊框 padding，讓畫作純粹呈現 */
             background-color: transparent; 
             padding: 0; 
         }
@@ -140,7 +137,7 @@
             opacity: 1;
         }
 
-        /* 右側：黑底白字資訊面板 */
+        /* 右側資訊面板 */
         .info-panel {
             position: absolute;
             right: 10%;
@@ -162,14 +159,14 @@
             font-size: 42px;
             font-weight: 400;
             margin-bottom: 15px;
-            color: #ffffff; /* 文字換回白 */
+            color: #ffffff;
             line-height: 1.1;
         }
 
         .art-meta {
             font-family: 'Roboto', sans-serif;
             font-size: 14px;
-            color: #aaaaaa; /* 優雅暗灰 */
+            color: #aaaaaa;
             margin-bottom: 30px;
             letter-spacing: 0.05em;
         }
@@ -182,7 +179,7 @@
             margin-bottom: 40px;
         }
 
-        /* 詢價與 IG 導覽按鈕（換回白框白字） */
+        /* 詢價與 IG 導覽按鈕 */
         .buy-btn {
             display: inline-block;
             border: 1px solid #ffffff;
@@ -210,7 +207,6 @@
         .prev-zone { left: 0; justify-content: flex-start; padding-left: 40px;}
         .next-zone { right: 0; justify-content: flex-end; padding-right: 40px;}
 
-        /* 換圖箭頭改回淡白色 */
         .nav-zone span { font-size: 40px; font-weight: 100; color: rgba(255,255,255,0.05); transition: 0.4s; }
         .nav-zone:hover span { color: rgba(255,255,255,0.7); }
 
@@ -219,7 +215,7 @@
             font-size: 14px; color: rgba(255,255,255,0.3); letter-spacing: 2px;
         }
 
-        /* 📱 手機版響應式自動調整 */
+        /* 手機版響應式自動調整 */
         @media (max-width: 768px) {
             .nav-zone, .counter { display: none; } 
             .slide-container { width: 100%; left: 0; top: -5vh; }
@@ -247,68 +243,101 @@
     </header>
 
     <main id="touch-area">
-        <!-- 左邊換圖點擊區 (電腦版) -->
         <div class="nav-zone prev-zone" onclick="changeSlide(-1)"><span>‹</span></div>
         
         <div class="slide-container">
+            <!-- ⚠️ 請注意：我在下方新增了 data-desc 屬性，你可以直接在裡面修改中英文論述 -->
+            
             <!-- 畫作 1 -->
-            <div class="artwork-group active" data-title="All eyes on us" data-meta="Oil on Canvas, 2026 — 40x50cm" data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
+            <div class="artwork-group active" 
+                 data-title="All eyes on us" 
+                 data-meta="Oil on Canvas, 2026 — 40x50cm" 
+                 data-desc="An influencer in the middle of the beach, a step away from being trampled by a pink elephant, yet joyfully waiting for the lady in front of her to capture the ”perfect shot.“ It’s a reflection on the phenomenen of craving for attention.
+
+Inspired by the story of Chanchal, an elephant painted with pink powder for a commercial shoot who tragically passed away three months later.
+
+Though her cause of death is under investigation without directly linked to the incident, it raised an topic: animal exploitation, whether physical or mental abuse, is a pressing issue that I would like to raise awareness.
+"
+                 data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
                 <div class="tilt-box">
                     <div class="glare"></div>
-                    <img src="All eyes on us.jpg" alt="All eyes on us 眾所矚目 - 2026 油畫 Oil on Canvas">
+                    <img src="All eyes on us.jpg" alt="All eyes on us 眾所矚目">
                 </div>
             </div>
             
             <!-- 畫作 2 -->
-            <div class="artwork-group" data-title="The quiet glamour" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
+            <div class="artwork-group" 
+                 data-title="The quiet glamour" 
+                 data-meta="Acrylic, 2025 — 43.5x64cm" 
+                 data-desc="靜謐風華 (2025)。透過細緻的壓克力筆觸，捕捉深夜裡溫柔且堅定的光影，展現不張揚的優雅與生命力。"
+                 data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
                 <div class="tilt-box">
                     <div class="glare"></div>
-                    <img src="The quiet glamour.jpeg" alt="The quiet glamour 靜謐風華 - 2025 壓克力畫 Acrylic">
+                    <img src="The quiet glamour.jpeg" alt="The quiet glamour 靜謐風華">
                 </div>
             </div>
             
             <!-- 畫作 3 -->
-            <div class="artwork-group" data-title="A piece of a dream" data-meta="Oil on Canvas, 2025 — 50x40cm" data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
+            <div class="artwork-group" 
+                 data-title="A piece of a dream" 
+                 data-meta="Oil on Canvas, 2025 — 50x40cm" 
+                 data-desc="夢境一隅 (2025)。超現實的畫面構圖，試圖將清晨醒來前、那段逐漸模糊卻無比真實的潛意識夢境具象化。"
+                 data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
                 <div class="tilt-box">
                     <div class="glare"></div>
-                    <img src="A piece of a dream.jpeg" alt="A piece of a dream 夢境一隅 - 2025 油畫 Oil on Canvas">
+                    <img src="A piece of a dream.jpeg" alt="A piece of a dream 夢境一隅">
                 </div>
             </div>
             
             <!-- 畫作 4 -->
-            <div class="artwork-group" data-title="Family" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
+            <div class="artwork-group" 
+                 data-title="Family" 
+                 data-meta="Acrylic, 2025 — 43.5x64cm" 
+                 data-desc="家人 (2025)。以濃郁、溫暖且充滿情感的色彩塊面，定格生命中最核心、最具安全感的依靠與陪伴。"
+                 data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
                 <div class="tilt-box">
                     <div class="glare"></div>
-                    <img src="Family.jpeg" alt="Family 家人 - 2025 壓克力畫 Acrylic">
+                    <img src="Family.jpeg" alt="Family 家人">
                 </div>
             </div>
             
             <!-- 畫作 5 -->
-            <div class="artwork-group" data-title="Flower with elegant vibe" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
+            <div class="artwork-group" 
+                 data-title="Flower with elegant vibe" 
+                 data-meta="Acrylic, 2025 — 43.5x64cm" 
+                 data-desc="優雅花卉 (2025)。流暢的線條與富有當代感的色彩搭配，重新詮釋靜物花卉在空間中所散發出的獨特氣場。"
+                 data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
                 <div class="tilt-box">
                     <div class="glare"></div>
-                    <img src="Flower with elegant vibe.png" alt="Flower with elegant vibe 優雅花卉 - 2025 壓克力畫 Acrylic">
+                    <img src="Flower with elegant vibe.png" alt="Flower with elegant vibe 優雅花卉">
                 </div>
             </div>
             
             <!-- 畫作 6 -->
-            <div class="artwork-group" data-title="Blooming Roses" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
+            <div class="artwork-group" 
+                 data-title="Blooming Roses" 
+                 data-meta="Acrylic, 2025 — 43.5x64cm" 
+                 data-desc="盛開的玫瑰 (2025)。層層堆疊的強烈壓克力筆觸，展現植物破土而出、恣意綻放的強烈生命能量。"
+                 data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
                 <div class="tilt-box">
                     <div class="glare"></div>
-                    <img src="Blooming Roses.png" alt="Blooming Roses 盛開的玫瑰 - 2025 壓克力畫 Acrylic">
+                    <img src="Blooming Roses.png" alt="Blooming Roses 盛開的玫瑰">
                 </div>
             </div>
             
             <!-- 畫作 7 -->
-            <div class="artwork-group" data-title="Fantasy of a girl in bathroom time" data-meta="Acrylic, 2025 — 43.5x64cm" data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
+            <div class="artwork-group" 
+                 data-title="Fantasy of a girl in bathroom time" 
+                 data-meta="Acrylic, 2025 — 43.5x64cm" 
+                 data-desc="女孩沐浴時光的幻想 (2025)。魔幻寫實的奇異氛圍，描繪私密空間裡卸下防備後，思緒無邊際飄散的奇幻瞬間。"
+                 data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
                 <div class="tilt-box">
                     <div class="glare"></div>
-                    <img src="Fantasy of a girl in bathroom time.png" alt="Fantasy of a girl in bathroom time 女階沐浴時光的幻想 - 2025 壓克力畫 Acrylic">
+                    <img src="Fantasy of a girl in bathroom time.png" alt="Fantasy of a girl in bathroom time 女孩沐浴時光的幻想">
                 </div>
             </div>
         </div>
 
-        <!-- 右邊換圖點擊區 (電腦版) -->
         <div class="nav-zone next-zone" onclick="changeSlide(1)"><span>›</span></div>
     </main>
 
@@ -316,8 +345,8 @@
     <div class="info-panel" id="infoPanel">
         <div id="artTitle" class="art-title">All eyes on us</div>
         <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
-        <div class="art-desc">
-            A reflection of internal dialogue and the profound sense of being observed. This piece marks a significant turning point in my creative journey.
+        <div id="artDesc" class="art-desc">
+            <!-- 這裡交給 JavaScript 自動根據當前畫作動態切換 -->
         </div>
         <div class="buy-btn" onclick="openCurrentIG()">INQUIRE / VIEW ON IG</div>
     </div>
@@ -329,6 +358,7 @@
         const slides = document.querySelectorAll('.artwork-group');
         const titleEl = document.getElementById('artTitle');
         const metaEl = document.getElementById('artMeta');
+        const descEl = document.getElementById('artDesc'); // 👈 新增描述元件的抓取
         const counterEl = document.getElementById('counter');
         const infoPanel = document.getElementById('infoPanel');
 
@@ -337,8 +367,11 @@
             infoPanel.classList.remove('visible');
             
             setTimeout(() => {
+                // 🪄 核心動態切換魔法：同時讀取標題、媒材與全新加入的動態描述
                 titleEl.textContent = currentSlide.getAttribute('data-title');
                 metaEl.textContent = currentSlide.getAttribute('data-meta');
+                descEl.textContent = currentSlide.getAttribute('data-desc'); 
+                
                 counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
                 infoPanel.classList.add('visible');
             }, 500); 
@@ -356,7 +389,7 @@
             if(igLink) window.open(igLink, '_blank');
         }
 
-        // 啟動 3D 滑鼠互動與反光特效
+        // 3D 效果
         const tiltBoxes = document.querySelectorAll('.tilt-box');
         tiltBoxes.forEach(box => {
             box.addEventListener('mousemove', (e) => {
@@ -389,7 +422,7 @@
             if (e.key === 'ArrowRight') changeSlide(1);
         });
 
-        // 手機觸控滑動切換
+        // 手機滑動
         const touchArea = document.getElementById('touch-area');
         let touchStartX = 0, touchStartY = 0;
 
@@ -410,7 +443,11 @@
             }
         });
 
-        setTimeout(() => infoPanel.classList.add('visible'), 200);
+        // 初始化第一次的文字載入
+        document.addEventListener('DOMContentLoaded', () => {
+            descEl.textContent = slides[0].getAttribute('data-desc');
+            infoPanel.classList.add('visible');
+        });
     </script>
 </body>
 </html>
