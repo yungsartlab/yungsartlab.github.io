@@ -14,7 +14,6 @@
     <meta property="og:url" content="https://yungsartlab.github.io/">
     <meta property="og:type" content="website">
     
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JM5BZF9MBD"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -23,7 +22,6 @@
       gtag('config', 'G-JM5BZF9MBD');
     </script>
     
-    <!-- 引入高雅的美術館字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -137,18 +135,18 @@
             opacity: 1;
         }
 
-        /* 🎯 右側資訊面板：改為與左邊畫作頂部平行，高度固定以利內部捲動 */
+        /* ✨ 右側資訊面板：與左邊畫作完美頂端平行與固定高度 */
         .info-panel {
             position: absolute;
             right: 10%;
-            top: 16vh; /* 調整此數值，讓標題完美與左邊畫作頂部平行 */
+            top: 16vh; 
             width: 320px;
-            height: 68vh; /* 高度與畫作的最大高度等高 */
+            height: 68vh; 
             z-index: 20;
             opacity: 0;
             transition: opacity 0.6s ease, transform 0.6s ease;
             display: flex;
-            flex-direction: column; /* 讓內部元件由上往下垂直排列 */
+            flex-direction: column; 
         }
 
         .info-panel.visible {
@@ -162,7 +160,7 @@
             margin-bottom: 10px;
             color: #ffffff;
             line-height: 1.1;
-            flex-shrink: 0; /* 確保標題絕對不會被壓縮縮小 */
+            flex-shrink: 0;
         }
 
         .art-meta {
@@ -174,21 +172,22 @@
             flex-shrink: 0;
         }
 
-        /* 🎯 核心改動：長文敘述區塊設定最大高度，並允許自行 Scroll 往下看 */
+        /* ✨ 右側描述欄：加上 pre-line，讓你在 HTML 裡怎麼按 Enter，網頁就怎麼換行 */
         .art-desc {
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
             line-height: 1.8;
             color: #888888; 
             margin-bottom: 30px;
-            overflow-y: auto; /* 允許垂直方向滾動看長文 */
+            overflow-y: auto; 
             padding-right: 10px;
-            flex-grow: 1; /* 自動填滿中間剩餘的空間 */
-            user-select: text; /* 允許使用者選取文字複製 */
+            flex-grow: 1; 
+            user-select: text; 
             -webkit-user-select: text;
+            white-space: pre-line; /* 👈 關鍵：完美保留你打的段落與換行 */
         }
 
-        /* 幫滾動條做極簡美化（隱形滾動條，維持美術館高雅感） */
+        /* 隱形精緻滾動條 */
         .art-desc::-webkit-scrollbar {
             width: 3px;
         }
@@ -209,8 +208,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            flex-shrink: 0; /* 確保按鈕永遠維持原本大小 */
-            margin-top: auto; /* 永遠貼在右側區塊的最底部 */
+            flex-shrink: 0; 
+            margin-top: auto; 
         }
 
         .buy-btn:hover {
@@ -267,11 +266,15 @@
         <div class="nav-zone prev-zone" onclick="changeSlide(-1)"><span>‹</span></div>
         
         <div class="slide-container">
-            <!-- 畫作 1 -->
+            
             <div class="artwork-group active" 
                  data-title="All eyes on us" 
                  data-meta="Oil on Canvas, 2026 — 40x50cm" 
-                 data-desc="眾所矚目 (2026)。這幅作品探討了內心對白與被凝視的深層感受，標誌著我創作生涯中一個極其重要的轉折點。 Capturing the gentle yet firm interplay of light and shadow in the deep night, revealing an understated elegance and warmth."
+                 data-desc="An influencer in the middle of the beach, a step away from being trampled by a pink elephant, yet joyfully waiting for the lady in front of her to capture the ”perfect shot.“ It’s a reflection on the phenomenon of craving for attention.
+
+Inspired by the story of Chanchal, an elephant painted with pink powder for a commercial shoot who tragically passed away three months later.
+
+Though her cause of death is under investigation without being directly linked to the incident, it raised a topic: animal exploitation, whether physical or mental abuse, is a pressing issue that I would like to raise awareness."
                  data-ig="https://www.instagram.com/p/DZTHyEMRabd/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -279,11 +282,10 @@
                 </div>
             </div>
             
-            <!-- 畫作 2 -->
             <div class="artwork-group" 
                  data-title="The quiet glamour" 
                  data-meta="Acrylic, 2025 — 43.5x64cm" 
-                 data-desc="靜謐風華 (2025)。層層堆疊的靜謐筆觸，撫平了夜的喧囂；在這片安寧中，唯有玫瑰依循著自己的呼吸，優雅且堅定地盛開。 Quiet, heavily layered brushstrokes soothe the clamor of the night; within this profound stillness, the rose follows its own gentle breath, blossoming with grace and steadfast elegance."
+                 data-desc="An elegant capture of the night’s gentle yet steadfast light, portraying a subtle grace and comforting warmth."
                  data-ig="https://www.instagram.com/p/DQaNdUljGwr/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -291,11 +293,12 @@
                 </div>
             </div>
             
-            <!-- 畫作 3 -->
             <div class="artwork-group" 
                  data-title="A piece of a dream" 
                  data-meta="Oil on Canvas, 2025 — 50x40cm" 
-                 data-desc="夢境一隅 (2025)。超現實的畫面構圖，試圖將清晨醒來前、那段逐漸模糊卻無比真實的潛意識夢境具象化。 It was inspired by a dream I vividly remembered. As soon as I woke up, I wrote it down before the details faded. Sometimes I have a clear visual in my mind, but translating that image onto canvas can be surprisingly challenging. To help bridge that gap, I often use real-life photos as references and try to recreate the atmosphere I saw in the dream. What I love most about this particular piece is the way the human and the bear gaze at each other — peacefully, as if they understand one another. Through the river’s reflection, I wanted to invite you to reflect on the relationship between the two figures, and perhaps even extend that thought to our relationship with nature. While the painting has a fantastical appearance, my intention is to go beyond that — to bring in deeper meaning and emotional resonance beneath the surface."
+                 data-desc="It was inspired by a dream I vividly remembered. As soon as I woke up, I wrote it down before the details faded. Sometimes I have a clear visual in my mind, but translating that image onto canvas can be surprisingly challenging. To help bridge that gap, I often use real-life photos as references and try to recreate the atmosphere I saw in the dream.
+
+What I love most about this particular piece is the way the human and the bear gaze at each other — peacefully, as if they understand one another. Through the river’s reflection, I wanted to invite you to reflect on the relationship between the two figures, and perhaps even extend that thought to our relationship with nature. While the painting has a fantastical appearance, my intention is to go beyond that — to bring in deeper meaning and emotional resonance beneath the surface."
                  data-ig="https://www.instagram.com/p/DMfRP22oAgf/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -303,11 +306,10 @@
                 </div>
             </div>
             
-            <!-- 畫作 4 -->
             <div class="artwork-group" 
                  data-title="Family" 
                  data-meta="Acrylic, 2025 — 43.5x64cm" 
-                 data-desc="家人 (2025)。以濃郁、溫暖且充滿情感的色彩塊面，定格生命中最核心、最具安全感的依靠與陪伴。 Freezing in time life’s most essential anchors of companionship and security, through rich, warm, and emotionally charged planes of color."
+                 data-desc="Capturing life’s deepest sense of belonging and ultimate comfort, framed within rich, warm, and deeply soulful patches of color."
                  data-ig="https://www.instagram.com/p/DNWdABMoxDU/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -315,11 +317,10 @@
                 </div>
             </div>
             
-            <!-- 畫作 5 -->
             <div class="artwork-group" 
                  data-title="Flower with elegant vibe" 
                  data-meta="Acrylic, 2025 — 43.5x64cm" 
-                 data-desc="優雅花卉 (2025)。流暢的線條與富有當代感的色彩搭配，重新詮釋靜物花卉在空間中所散發出的獨特氣場與優雅。 Reinterpreting the unique presence and elegance of still-life flowers within a space, through fluid lines and a contemporary color palette."
+                 data-desc="A contemporary reimagining of still-life florals, capturing the fluid lines and modern harmony that radiate an elegant, unique aura throughout the space."
                  data-ig="https://www.instagram.com/p/DMBSzyDgeL_/?img_index=1">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -327,11 +328,10 @@
                 </div>
             </div>
             
-            <!-- 畫作 6 -->
             <div class="artwork-group" 
                  data-title="Blooming Roses" 
                  data-meta="Acrylic, 2025 — 43.5x64cm" 
-                 data-desc="盛開的玫瑰 (2025)。厚實而內斂的壓克力肌理，輕輕喚醒沉睡的泥土；在寂靜中，舒展出生命最溫柔且堅定的綻放。 Subtle yet layered acrylic textures gently awaken the earth, unfolding life’s most tender and steadfast bloom in absolute silence."
+                 data-desc="Within the calm layering of deep tones, the rose forgets time—crystallizing into a silent poem, softly radiating its unique and inner light."
                  data-ig="https://www.instagram.com/p/DLvVAR7AKC8/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -339,11 +339,10 @@
                 </div>
             </div>
             
-            <!-- 畫作 7 -->
             <div class="artwork-group" 
                  data-title="Fantasy of a girl in bathroom time" 
                  data-meta="Acrylic, 2025 — 43.5x64cm" 
-                 data-desc="女孩沐浴時光的幻想 (2025)。在絕對私密的寂靜裡，卸下防備。無數粉紅泡泡與幻想在溫熱的水氣中悄然蔓延，筆觸溫柔地定格了思緒無邊際飄散的平靜瞬間。 In the silence of absolute privacy, the guard comes down. Countless pink bubbles and unspoken fantasies gently expand through the warm steam, as brushstrokes softly freeze a tranquil moment of boundless thoughts."
+                 data-desc="A hidden sanctuary for the self. Within a magical yet serene ambiance, pink fantasies rise as lightly as bubbles, blossoming quietly and freely in the most peaceful corner."
                  data-ig="https://www.instagram.com/p/DLGYrdCIyWb/">
                 <div class="tilt-box">
                     <div class="glare"></div>
@@ -355,13 +354,11 @@
         <div class="nav-zone next-zone" onclick="changeSlide(1)"><span>›</span></div>
     </main>
 
-    <!-- 右側資訊面板 -->
     <div class="info-panel" id="infoPanel">
         <div id="artTitle" class="art-title">All eyes on us</div>
         <div id="artMeta" class="art-meta">Oil on Canvas, 2026 — 40x50cm</div>
         <div id="artDesc" class="art-desc">
-            <!-- 由 JavaScript 動態注入 -->
-        </div>
+            </div>
         <div class="buy-btn" onclick="openCurrentIG()">INQUIRE / VIEW ON IG</div>
     </div>
 
@@ -383,9 +380,11 @@
             setTimeout(() => {
                 titleEl.textContent = currentSlide.getAttribute('data-title');
                 metaEl.textContent = currentSlide.getAttribute('data-meta');
+                
+                // 完美保留並載入 HTML 內設定好的自訂分段
                 descEl.textContent = currentSlide.getAttribute('data-desc'); 
                 
-                // 每次換圖時，自動將文字滾動軸拉回最上方
+                // 換圖時將滾動軸拉回最頂
                 descEl.scrollTop = 0;
                 
                 counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
